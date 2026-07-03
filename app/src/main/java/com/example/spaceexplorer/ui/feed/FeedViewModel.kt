@@ -4,12 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.spaceexplorer.domain.model.Article
 import com.example.spaceexplorer.domain.repository.FeedRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FeedViewModel(private val feedRepository: FeedRepository) : ViewModel() {
+@HiltViewModel
+class FeedViewModel @Inject constructor(private val feedRepository: FeedRepository) : ViewModel() {
 
     private val _feed = MutableStateFlow<FeedState>(FeedState.Loading)
     val feed: StateFlow<FeedState> = _feed.asStateFlow()

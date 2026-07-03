@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
     implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson.converter)
     implementation(libs.hilt.android)

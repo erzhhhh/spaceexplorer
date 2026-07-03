@@ -25,12 +25,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.example.spaceexplorer.ui.favorites.FavoritesScreen
 import com.example.spaceexplorer.ui.feed.FeedScreen
 import com.example.spaceexplorer.ui.launches.LaunchesScreen
 import com.example.spaceexplorer.ui.settings.SettingsScreen
 import com.example.spaceexplorer.ui.theme.SpaceExplorerTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,20 +57,17 @@ fun SpaceExplorerApp() {
                 item(
                     icon = {
                         Icon(
-                            it.icon,
-                            contentDescription = it.label
+                            it.icon, contentDescription = it.label
                         )
                     },
                     label = { Text(it.label) },
                     selected = it == currentDestination,
-                    onClick = { currentDestination = it }
-                )
+                    onClick = { currentDestination = it })
             }
-        }
-    ) {
+        }) {
 
         when (currentDestination) {
-            AppDestinations.HOME -> FeedScreen()
+            AppDestinations.HOME -> FeedScreen(viewModel = hiltViewModel())
             AppDestinations.LAUNCHES -> LaunchesScreen()
             AppDestinations.FAVORITES -> FavoritesScreen()
             AppDestinations.SETTINGS -> SettingsScreen()
@@ -80,16 +80,16 @@ enum class AppDestinations(
     val icon: ImageVector,
 ) {
     HOME("Feed", Icons.Default.Home),
-    LAUNCHES("Launches", Icons.Default.RocketLaunch),
-    FAVORITES("Favorites", Icons.Default.Favorite),
-    SETTINGS("Settings", Icons.Default.Settings),
+    LAUNCHES(
+        "Launches", Icons.Default.RocketLaunch
+    ),
+    FAVORITES("Favorites", Icons.Default.Favorite), SETTINGS("Settings", Icons.Default.Settings),
 }
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-        text = "Hello $name!",
-        modifier = modifier
+        text = "Hello $name!", modifier = modifier
     )
 }
 
