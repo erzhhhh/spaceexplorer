@@ -68,7 +68,7 @@ fun SpaceExplorerApp() {
 
         when (currentDestination) {
             AppDestinations.HOME -> FeedScreen(viewModel = hiltViewModel())
-            AppDestinations.LAUNCHES -> LaunchesScreen()
+            AppDestinations.LAUNCHES -> LaunchesScreen(viewModel = hiltViewModel())
             AppDestinations.FAVORITES -> FavoritesScreen()
             AppDestinations.SETTINGS -> SettingsScreen()
         }
