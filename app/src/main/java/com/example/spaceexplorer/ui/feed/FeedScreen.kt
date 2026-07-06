@@ -22,10 +22,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.example.spaceexplorer.domain.model.Article
+import com.example.spaceexplorer.domain.model.Author
 
 @Composable
 fun FeedScreen(
@@ -113,4 +115,28 @@ fun ErrorScreen(message: String) {
 
 }
 
-
+@Preview(
+    showBackground = true,
+)
+@Composable
+fun ArticleCardPreview() {
+    ArticleCard(
+        article = Article(
+            id = 1,
+            title = "Title",
+            authors = listOf(
+                Author(
+                    name = "Author 1"
+                ),
+                Author(
+                    name = "Author 2"
+                )
+            ),
+            url = "https://example.com",
+            imageUrl = "https://developer.android.com/static/develop/ui/compose/images/tooling-preview-live-edit.gif",
+            newsSite = "SpaceX",
+            summary = "Summary",
+            publishedAt = "2023-05-01T12:00:00Z",
+        )
+    )
+}
