@@ -9,6 +9,6 @@ import jakarta.inject.Inject
 class FeedRepositoryImpl @Inject constructor(private val api: SpaceExplorerApi) : FeedRepository {
 
     override suspend fun getArticles(): List<Article> {
-        return api.loadFeed().results.map { it.toDomain() }
+        return api.loadFeed().results?.map { it.toDomain() }.orEmpty()
     }
 }
