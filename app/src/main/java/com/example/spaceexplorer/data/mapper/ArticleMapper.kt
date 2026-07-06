@@ -6,16 +6,16 @@ import com.example.spaceexplorer.domain.model.Article
 import com.example.spaceexplorer.domain.model.Author
 
 fun ArticleDto.toDomain(): Article = Article(
-    id = id,
-    title = title,
-    authors = authors.map { it.toDomain() },
-    url = url,
-    imageUrl = imageUrl,
-    newsSite = newsSite,
-    summary = summary,
-    publishedAt = publishedAt
+    id = id ?: 0,
+    title = title.orEmpty(),
+    authors = authors?.map { it.toDomain() }.orEmpty(),
+    url = url.orEmpty(),
+    imageUrl = imageUrl.orEmpty(),
+    newsSite = newsSite.orEmpty(),
+    summary = summary.orEmpty(),
+    publishedAt = publishedAt.orEmpty()
 )
 
 fun AuthorDto.toDomain(): Author = Author(
-    name = name
+    name = name.orEmpty()
 )
