@@ -27,6 +27,7 @@ class FeedViewModel @Inject constructor(private val feedRepository: FeedReposito
             try {
                 val articles = feedRepository.getArticles()
                 _feed.value = FeedState.Success(articles)
+                // TODO add CancellationException handler
             } catch (e: Exception) {
                 _feed.value = FeedState.Error(e.message ?: "Unknown error")
             }
