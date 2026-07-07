@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SpaceExplorer</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_dark_mode">Dark Mode</string>
+    <string name="settings_content">Content</string>
+    <string name="settings_offline_caching">Offline Caching</string>
 </resources>

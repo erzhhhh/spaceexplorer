@@ -14,8 +14,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.spaceexplorer.R
 
 
 @Composable
@@ -31,7 +33,7 @@ fun SettingsScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(
-                text = "Appearance",
+                text = stringResource(R.string.settings_appearance),
                 style = MaterialTheme.typography.titleLarge
             )
 
@@ -55,7 +57,7 @@ fun SettingsScreen(
                         modifier = Modifier
                             .padding(start = 8.dp, end = 8.dp)
                             .weight(1F),
-                        text = "Dark Mode",
+                        text = stringResource(R.string.settings_dark_mode),
                         style = MaterialTheme.typography.titleMedium
                     )
                     Switch(
@@ -68,7 +70,7 @@ fun SettingsScreen(
             }
 
             Text(
-                text = "Content",
+                text = stringResource(R.string.settings_content),
                 style = MaterialTheme.typography.titleLarge
             )
 
@@ -92,7 +94,7 @@ fun SettingsScreen(
                         modifier = Modifier
                             .padding(start = 8.dp, end = 8.dp)
                             .weight(1F),
-                        text = "Offline caching",
+                        text = stringResource(R.string.settings_offline_caching),
                         style = MaterialTheme.typography.titleMedium
                     )
                     Switch(
