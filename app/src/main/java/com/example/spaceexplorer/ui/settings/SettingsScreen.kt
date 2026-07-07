@@ -12,18 +12,25 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.spaceexplorer.R
 
 
 @Composable
 fun SettingsScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: SettingsViewModel = hiltViewModel()
 ) {
+    val isDarkModeEnabled: Boolean by viewModel.darkModeEnabled.collectAsStateWithLifecycle()
+    val isOfflineCachingEnabled: Boolean by viewModel.offlineCachingEnabled.collectAsStateWithLifecycle()
+
     Scaffold() { innerPadding ->
         Column(
             modifier = modifier
@@ -63,8 +70,10 @@ fun SettingsScreen(
                     Switch(
                         modifier = Modifier
                             .padding(start = 8.dp, end = 16.dp),
-                        checked = true,
-                        onCheckedChange = {}
+                        checked = isDarkModeEnabled,
+                        onCheckedChange = { enabled ->
+                            viewModel.toggleDarkMode(enabled)
+                        }
                     )
                 }
             }
@@ -100,8 +109,10 @@ fun SettingsScreen(
                     Switch(
                         modifier = Modifier
                             .padding(start = 8.dp, end = 16.dp),
-                        checked = true,
-                        onCheckedChange = {}
+                        checked = isOfflineCachingEnabled,
+                        onCheckedChange = { enabled ->
+                            viewModel.toggleOfflineCaching(enabled)
+                        }
                     )
                 }
             }
