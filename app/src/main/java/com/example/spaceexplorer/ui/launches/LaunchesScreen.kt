@@ -19,7 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.spaceexplorer.domain.model.Article
-import com.example.spaceexplorer.ui.feed.ArticleCard
+import com.example.spaceexplorer.ui.components.ArticleCard
 
 @Composable
 fun LaunchesScreen(viewModel: LaunchesViewModel) {
