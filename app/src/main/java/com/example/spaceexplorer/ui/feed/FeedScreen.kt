@@ -11,8 +11,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -22,15 +26,23 @@ import com.example.spaceexplorer.ui.components.ArticleCard
 
 @Composable
 fun FeedScreen(
-    viewModel: FeedViewModel
+    viewModel: FeedViewModel,
+    modifier: Modifier = Modifier
 ) {
 
     val uiState: FeedState by viewModel.feed.collectAsStateWithLifecycle()
+    val snackBarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(Unit) {
+        viewModel.errorEvents.collect { message ->
+            snackBarHostState.showSnackbar(message)
+        }
+    }
 
     when (val state = uiState) {
-        FeedState.Loading -> LoadingScreen()
-        is FeedState.Success -> FeedScreen(state.articles)
-        is FeedState.Error -> ErrorScreen(state.message)
+        FeedState.Loading -> LoadingScreen(modifier)
+        is FeedState.Success -> FeedScreen(state.articles, modifier)
+        is FeedState.Error -> ErrorScreen(state.message, modifier)
     }
 }
 
@@ -72,6 +84,6 @@ fun FeedScreen(
 }
 
 @Composable
-fun ErrorScreen(message: String) {
+fun ErrorScreen(message: String, modifier: Modifier = Modifier) {
 
 }

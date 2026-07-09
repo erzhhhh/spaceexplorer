@@ -5,31 +5,42 @@ import androidx.lifecycle.viewModelScope
 import com.example.spaceexplorer.domain.model.Article
 import com.example.spaceexplorer.domain.repository.FeedRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class FeedViewModel @Inject constructor(private val feedRepository: FeedRepository) : ViewModel() {
 
-    private val _feed = MutableStateFlow<FeedState>(FeedState.Loading)
-    val feed: StateFlow<FeedState> = _feed.asStateFlow()
+    val feed: StateFlow<FeedState> = feedRepository.articlesFlow
+        .map<List<Article>, FeedState> { articles -> FeedState.Success(articles) }
+        .catch { emit(FeedState.Error(it.message ?: "Unknown error")) }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = FeedState.Loading
+        )
+
+    private val _errorEvents = Channel<String>()
+    val errorEvents: Flow<String> = _errorEvents.receiveAsFlow()
 
     init {
-        loadFeed()
+        refreshFeed()
     }
 
-    fun loadFeed() {
-        _feed.value = FeedState.Loading
+    fun refreshFeed() {
         viewModelScope.launch {
             try {
-                val articles = feedRepository.getArticles()
-                _feed.value = FeedState.Success(articles)
-                // TODO add CancellationException handler
+                feedRepository.refreshArticles()
             } catch (e: Exception) {
-                _feed.value = FeedState.Error(e.message ?: "Unknown error")
+                _errorEvents.send(e.message ?: "Unknown error")
             }
         }
     }
