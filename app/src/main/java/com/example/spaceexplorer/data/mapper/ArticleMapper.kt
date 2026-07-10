@@ -17,6 +17,26 @@ fun ArticleDto.toDomain(): Article = Article(
     publishedAt = publishedAt.orEmpty()
 )
 
+fun ArticleDto.toEntity(): ArticleEntity = ArticleEntity(
+    id = id ?: 0,
+    title = title.orEmpty(),
+    url = url.orEmpty(),
+    imageUrl = imageUrl.orEmpty(),
+    newsSite = newsSite.orEmpty(),
+    summary = summary.orEmpty(),
+    publishedAt = publishedAt.orEmpty()
+)
+
+fun Article.toEntity(): ArticleEntity = ArticleEntity(
+    id = id,
+    title = title,
+    url = url,
+    imageUrl = imageUrl,
+    newsSite = newsSite,
+    summary = summary,
+    publishedAt = publishedAt
+)
+
 fun ArticleEntity.toDomain(): Article = Article(
     id = id,
     title = title,
@@ -26,16 +46,6 @@ fun ArticleEntity.toDomain(): Article = Article(
     newsSite = newsSite,
     summary = summary,
     publishedAt = publishedAt
-)
-
-fun ArticleDto.toEntity(): ArticleEntity = ArticleEntity(
-    id = id ?: 0,
-    title = title.orEmpty(),
-    url = url.orEmpty(),
-    imageUrl = imageUrl.orEmpty(),
-    newsSite = newsSite.orEmpty(),
-    summary = summary.orEmpty(),
-    publishedAt = publishedAt.orEmpty()
 )
 
 fun AuthorDto.toDomain(): Author = Author(
