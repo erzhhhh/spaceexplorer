@@ -4,4 +4,6 @@
     <string name="settings_dark_mode">Dark Mode</string>
     <string name="settings_content">Content</string>
     <string name="settings_offline_caching">Offline Caching</string>
+    <string name="feed_retry">Retry</string>
+    <string name="feed_no_more_articles">No more articles</string>
 </resources>
