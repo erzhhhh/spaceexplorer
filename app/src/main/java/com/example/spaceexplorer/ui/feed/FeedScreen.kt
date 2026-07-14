@@ -1,28 +1,30 @@
 package com.example.spaceexplorer.ui.feed
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.LoadState
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemKey
+import com.example.spaceexplorer.R
 import com.example.spaceexplorer.domain.model.Article
 import com.example.spaceexplorer.ui.components.ArticleCard
+import com.example.spaceexplorer.ui.components.BottomErrorIndicator
+import com.example.spaceexplorer.ui.components.BottomLoadingIndicator
+import com.example.spaceexplorer.ui.components.FullScreenError
+import com.example.spaceexplorer.ui.components.FullScreenLoading
+
 
 @Composable
 fun FeedScreen(
@@ -30,60 +32,77 @@ fun FeedScreen(
     modifier: Modifier = Modifier
 ) {
 
-    val uiState: FeedState by viewModel.feed.collectAsStateWithLifecycle()
-    val snackBarHostState = remember { SnackbarHostState() }
+    val lazyPagingItems: LazyPagingItems<Article> = viewModel.feed.collectAsLazyPagingItems()
 
-    LaunchedEffect(Unit) {
-        viewModel.errorEvents.collect { message ->
-            snackBarHostState.showSnackbar(message)
-        }
-    }
+    val isListEmpty = lazyPagingItems.itemCount == 0
 
-    when (val state = uiState) {
-        FeedState.Loading -> LoadingScreen(modifier)
-        is FeedState.Success -> FeedScreen(state.articles, modifier)
-        is FeedState.Error -> ErrorScreen(state.message, modifier)
-    }
-}
+    val refreshState = lazyPagingItems.loadState.refresh
 
-@Composable
-fun LoadingScreen(modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator(
-            modifier = Modifier.size(48.dp),
-            color = MaterialTheme.colorScheme.primary,
-            strokeWidth = 8.dp
-        )
+    when {
+        isListEmpty && refreshState is LoadState.Loading -> FullScreenLoading(modifier)
+        isListEmpty && refreshState is LoadState.Error -> FullScreenError(
+            modifier = modifier,
+            errorMessage = refreshState.error.message ?: "Unknown error",
+            onRetry = { lazyPagingItems.retry() })
+
+        else -> FeedList(modifier = modifier, lazyPagingItems = lazyPagingItems)
     }
 }
 
 @Composable
-fun FeedScreen(
-    articles: List<Article>,
-    modifier: Modifier = Modifier
+fun FeedList(
+    modifier: Modifier = Modifier,
+    lazyPagingItems: LazyPagingItems<Article>
 ) {
-    Scaffold() { innerPadding ->
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    PullToRefreshBox(
+        isRefreshing = lazyPagingItems.loadState.refresh is LoadState.Loading,
+        onRefresh = { lazyPagingItems.refresh() },
+        modifier = modifier
+            .fillMaxSize()
+    ) {
         LazyColumn(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(innerPadding),
-            contentPadding = PaddingValues(16.dp),
+            contentPadding = PaddingValues(
+                start = 16.dp,
+                end = 16.dp,
+                bottom = 16.dp,
+                top = 16.dp + WindowInsets.statusBars
+                    .asPaddingValues()
+                    .calculateTopPadding()
+            ),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(
-                items = articles,
-                key = { article -> article.id }
-            ) { article ->
-                ArticleCard(article)
+                count = lazyPagingItems.itemCount,
+                key = lazyPagingItems.itemKey { it.id },
+            ) { index ->
+                val article = lazyPagingItems[index]
+                if (article != null) {
+                    ArticleCard(article)
+                }
+            }
+
+            // shows on the bottom of the list
+            when (val appendState = lazyPagingItems.loadState.append) {
+                is LoadState.Loading -> item { BottomLoadingIndicator() }
+                is LoadState.Error -> item {
+                    BottomErrorIndicator(
+                        appendState.error.message ?: "Unknown error",
+                        onRetry = { lazyPagingItems.retry() }
+                    )
+                }
+
+                is LoadState.NotLoading -> {
+                    if (appendState.endOfPaginationReached) {
+                        item {
+                            BottomErrorIndicator(
+                                stringResource(R.string.feed_no_more_articles),
+                                onRetry = { lazyPagingItems.retry() })
+                        }
+                    }
+                }
             }
         }
     }
-}
-
-@Composable
-fun ErrorScreen(message: String, modifier: Modifier = Modifier) {
-
 }
