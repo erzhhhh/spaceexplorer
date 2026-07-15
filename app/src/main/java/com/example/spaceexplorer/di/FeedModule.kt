@@ -1,8 +1,10 @@
 package com.example.spaceexplorer.di
 
+import com.example.spaceexplorer.data.local.database.ArticleDao
 import com.example.spaceexplorer.data.remote.api.SpaceExplorerApi
 import com.example.spaceexplorer.data.repository.FeedRepositoryImpl
 import com.example.spaceexplorer.domain.repository.FeedRepository
+import com.example.spaceexplorer.domain.repository.SettingsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,8 +19,10 @@ class FeedModule {
     @Provides
     @ActivityRetainedScoped
     fun provideFeedRepository(
-        api: SpaceExplorerApi
+        api: SpaceExplorerApi,
+        dao: ArticleDao,
+        settingsRepository: SettingsRepository
     ): FeedRepository {
-        return FeedRepositoryImpl(api)
+        return FeedRepositoryImpl(api = api, dao = dao, settingsRepository = settingsRepository)
     }
 }

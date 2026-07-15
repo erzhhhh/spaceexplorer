@@ -1,12 +1,15 @@
 package com.example.spaceexplorer.data.remote
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.spaceexplorer.data.mapper.toDomain
 import com.example.spaceexplorer.data.remote.api.SpaceExplorerApi
 import com.example.spaceexplorer.domain.model.Article
+import okio.IOException
+import retrofit2.HttpException
 
-class InMemoryArticlesPagingSource(
+class InMemoryFeedPagingSource(
     private val api: SpaceExplorerApi
 ) : PagingSource<String, Article>() {
 
@@ -25,7 +28,11 @@ class InMemoryArticlesPagingSource(
                 prevKey = null,
                 nextKey = nextKey
             )
-        } catch (e: Exception) {
+        } catch (e: IOException) {
+            LoadResult.Error(
+                throwable = e
+            )
+        } catch (e: HttpException) {
             LoadResult.Error(
                 throwable = e
             )
