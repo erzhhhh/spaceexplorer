@@ -1,12 +1,12 @@
 package com.example.spaceexplorer.data.mapper
 
-import com.example.spaceexplorer.data.local.database.ArticleEntity
-import com.example.spaceexplorer.data.remote.dto.ArticleDto
+import com.example.spaceexplorer.data.local.database.FeedArticleEntity
+import com.example.spaceexplorer.data.remote.dto.FeedArticleDto
 import com.example.spaceexplorer.data.remote.dto.AuthorDto
-import com.example.spaceexplorer.domain.model.Article
+import com.example.spaceexplorer.domain.model.FeedArticle
 import com.example.spaceexplorer.domain.model.Author
 
-fun ArticleDto.toDomain(): Article = Article(
+fun FeedArticleDto.toDomain(): FeedArticle = FeedArticle(
     id = id ?: 0,
     title = title.orEmpty(),
     authors = authors?.map { it.toDomain() }.orEmpty(),
@@ -17,7 +17,7 @@ fun ArticleDto.toDomain(): Article = Article(
     publishedAt = publishedAt.orEmpty()
 )
 
-fun ArticleDto.toEntity(): ArticleEntity = ArticleEntity(
+fun FeedArticleDto.toEntity(): FeedArticleEntity = FeedArticleEntity(
     id = id ?: 0,
     title = title.orEmpty(),
     url = url.orEmpty(),
@@ -27,7 +27,7 @@ fun ArticleDto.toEntity(): ArticleEntity = ArticleEntity(
     publishedAt = publishedAt.orEmpty()
 )
 
-fun Article.toEntity(): ArticleEntity = ArticleEntity(
+fun FeedArticle.toEntity(): FeedArticleEntity = FeedArticleEntity(
     id = id,
     title = title,
     url = url,
@@ -37,7 +37,7 @@ fun Article.toEntity(): ArticleEntity = ArticleEntity(
     publishedAt = publishedAt
 )
 
-fun ArticleEntity.toDomain(): Article = Article(
+fun FeedArticleEntity.toDomain(): FeedArticle = FeedArticle(
     id = id,
     title = title,
     authors = emptyList(),

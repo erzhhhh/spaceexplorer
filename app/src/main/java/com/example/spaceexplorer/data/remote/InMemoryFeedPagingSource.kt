@@ -3,21 +3,21 @@ package com.example.spaceexplorer.data.remote
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.spaceexplorer.data.remote.api.SpaceExplorerApi
-import com.example.spaceexplorer.data.remote.dto.ArticleDto
+import com.example.spaceexplorer.data.remote.dto.FeedArticleDto
 import okio.IOException
 import retrofit2.HttpException
 
 class InMemoryFeedPagingSource(
     private val api: SpaceExplorerApi
-) : PagingSource<String, ArticleDto>() {
+) : PagingSource<String, FeedArticleDto>() {
 
-    override suspend fun load(params: LoadParams<String>): LoadResult<String, ArticleDto> {
+    override suspend fun load(params: LoadParams<String>): LoadResult<String, FeedArticleDto> {
         return try {
             val cursor: String? = params.key
 
             val response = api.loadFeedCursor(publishedAtLt = cursor)
 
-            val articles: List<ArticleDto> = response.results.orEmpty()
+            val articles: List<FeedArticleDto> = response.results.orEmpty()
 
             val nextKey = articles.lastOrNull()?.publishedAt.takeIf { articles.isNotEmpty() }
 
@@ -37,7 +37,7 @@ class InMemoryFeedPagingSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<String, ArticleDto>): String? {
+    override fun getRefreshKey(state: PagingState<String, FeedArticleDto>): String? {
         return null
     }
 }

@@ -1,6 +1,6 @@
 package com.example.spaceexplorer.data.repository
 
-import com.example.spaceexplorer.data.local.database.ArticleDao
+import com.example.spaceexplorer.data.local.database.FeedDao
 import com.example.spaceexplorer.data.local.datastore.SettingsDataStore
 import com.example.spaceexplorer.domain.repository.SettingsRepository
 import jakarta.inject.Inject
@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 class SettingsRepositoryImpl @Inject constructor(
     private val settingsDataStore: SettingsDataStore,
-    private val dao: ArticleDao,
+    private val dao: FeedDao,
 ) : SettingsRepository {
 
     override val darkModeFlow: Flow<Boolean>

@@ -2,7 +2,7 @@ package com.example.spaceexplorer.ui.launches
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.spaceexplorer.domain.model.Article
+import com.example.spaceexplorer.domain.model.FeedArticle
 import com.example.spaceexplorer.domain.repository.LaunchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
@@ -40,6 +40,6 @@ class LaunchesViewModel @Inject constructor(
 
 sealed class LaunchesState {
     object Loading : LaunchesState()
-    data class Success(val launches: List<Article>) : LaunchesState()
+    data class Success(val launches: List<FeedArticle>) : LaunchesState()
     data class Error(val message: String) : LaunchesState()
 }

@@ -7,14 +7,14 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface ArticleDao {
+interface FeedDao {
 
-    @Query("SELECT * FROM articles ORDER BY publishedAt DESC")
-    fun getPagedArticles(): PagingSource<Int, ArticleEntity>
+    @Query("SELECT * FROM feed_articles ORDER BY publishedAt DESC")
+    fun getPagedArticles(): PagingSource<Int, FeedArticleEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertArticles(articles: List<ArticleEntity>)
+    suspend fun insertArticles(articles: List<FeedArticleEntity>)
 
-    @Query("DELETE FROM articles")
+    @Query("DELETE FROM feed_articles")
     suspend fun deleteAllArticles()
 }

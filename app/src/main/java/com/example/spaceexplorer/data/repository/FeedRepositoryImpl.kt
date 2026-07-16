@@ -6,11 +6,11 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.example.spaceexplorer.data.local.FeedRemoteMediator
-import com.example.spaceexplorer.data.local.database.ArticleDao
+import com.example.spaceexplorer.data.local.database.FeedDao
 import com.example.spaceexplorer.data.mapper.toDomain
 import com.example.spaceexplorer.data.remote.InMemoryFeedPagingSource
 import com.example.spaceexplorer.data.remote.api.SpaceExplorerApi
-import com.example.spaceexplorer.domain.model.Article
+import com.example.spaceexplorer.domain.model.FeedArticle
 import com.example.spaceexplorer.domain.repository.FeedRepository
 import com.example.spaceexplorer.domain.repository.SettingsRepository
 import jakarta.inject.Inject
@@ -22,12 +22,12 @@ import kotlinx.coroutines.flow.map
 
 class FeedRepositoryImpl @Inject constructor(
     private val api: SpaceExplorerApi,
-    private val dao: ArticleDao,
+    private val dao: FeedDao,
     private val settingsRepository: SettingsRepository,
 ) : FeedRepository {
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override val articlesFlow: Flow<PagingData<Article>> =
+    override val feedArticlesFlow: Flow<PagingData<FeedArticle>> =
         settingsRepository.offlineCachingFlow
             .distinctUntilChanged()
             .flatMapLatest { isCachingEnabled ->
@@ -39,7 +39,7 @@ class FeedRepositoryImpl @Inject constructor(
             }
 
     @OptIn(ExperimentalPagingApi::class)
-    fun cachedArticlesPager(): Flow<PagingData<Article>> {
+    fun cachedArticlesPager(): Flow<PagingData<FeedArticle>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 10,
@@ -55,7 +55,7 @@ class FeedRepositoryImpl @Inject constructor(
             }
     }
 
-    fun inMemoryArticlesPager(): Flow<PagingData<Article>> {
+    fun inMemoryArticlesPager(): Flow<PagingData<FeedArticle>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 10,

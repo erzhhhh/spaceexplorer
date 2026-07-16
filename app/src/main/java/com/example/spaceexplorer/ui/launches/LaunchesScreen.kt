@@ -18,7 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.spaceexplorer.domain.model.Article
+import com.example.spaceexplorer.domain.model.FeedArticle
 import com.example.spaceexplorer.ui.components.ArticleCard
 
 @Composable
@@ -34,7 +34,7 @@ fun LaunchesScreen(viewModel: LaunchesViewModel) {
 }
 
 @Composable
-fun LaunchesScreen(articles: List<Article>, modifier: Modifier = Modifier) {
+fun LaunchesScreen(articles: List<FeedArticle>, modifier: Modifier = Modifier) {
     Scaffold() { innerPadding ->
         LazyColumn(
             modifier = modifier

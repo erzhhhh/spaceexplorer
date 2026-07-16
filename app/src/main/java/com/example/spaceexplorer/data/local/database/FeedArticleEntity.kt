@@ -4,8 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 // TODO add authors list property
-@Entity(tableName = "articles")
-data class ArticleEntity(
+@Entity(tableName = "feed_articles")
+data class FeedArticleEntity(
     @PrimaryKey val id: Int = 0,
     val title: String,
     val url: String,

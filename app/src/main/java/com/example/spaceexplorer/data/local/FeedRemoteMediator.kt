@@ -4,23 +4,23 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import com.example.spaceexplorer.data.local.database.ArticleDao
-import com.example.spaceexplorer.data.local.database.ArticleEntity
+import com.example.spaceexplorer.data.local.database.FeedDao
+import com.example.spaceexplorer.data.local.database.FeedArticleEntity
 import com.example.spaceexplorer.data.mapper.toEntity
 import com.example.spaceexplorer.data.remote.api.SpaceExplorerApi
-import com.example.spaceexplorer.data.remote.dto.ArticleDto
+import com.example.spaceexplorer.data.remote.dto.FeedArticleDto
 import okio.IOException
 import retrofit2.HttpException
 
 @OptIn(ExperimentalPagingApi::class)
 class FeedRemoteMediator(
     private val api: SpaceExplorerApi,
-    private val dao: ArticleDao
-) : RemoteMediator<Int, ArticleEntity>() {
+    private val dao: FeedDao
+) : RemoteMediator<Int, FeedArticleEntity>() {
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, ArticleEntity>
+        state: PagingState<Int, FeedArticleEntity>
     ): MediatorResult {
 
         return try {
@@ -40,7 +40,7 @@ class FeedRemoteMediator(
 
             val response = api.loadFeedCursor(publishedAtLt = cursor)
 
-            val articles: List<ArticleDto> = response.results.orEmpty()
+            val articles: List<FeedArticleDto> = response.results.orEmpty()
             val endOfPaginationReached = articles.isEmpty()
 
             if (loadType == LoadType.REFRESH) {
