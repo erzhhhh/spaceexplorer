@@ -1,6 +1,6 @@
 package com.example.spaceexplorer.domain.model
 
-data class Article(
+data class FeedArticle(
     val id: Int,
     val title: String,
     val authors: List<Author>,

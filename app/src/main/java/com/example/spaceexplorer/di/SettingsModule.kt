@@ -1,6 +1,6 @@
 package com.example.spaceexplorer.di
 
-import com.example.spaceexplorer.data.local.database.ArticleDao
+import com.example.spaceexplorer.data.local.database.FeedDao
 import com.example.spaceexplorer.data.local.datastore.SettingsDataStore
 import com.example.spaceexplorer.data.repository.SettingsRepositoryImpl
 import com.example.spaceexplorer.domain.repository.SettingsRepository
@@ -18,7 +18,7 @@ class SettingsModule {
     @ActivityRetainedScoped
     fun provideSettingsRepository(
         settingsDataStore: SettingsDataStore,
-        dao: ArticleDao
+        dao: FeedDao
     ): SettingsRepository =
         SettingsRepositoryImpl(settingsDataStore, dao)
 }

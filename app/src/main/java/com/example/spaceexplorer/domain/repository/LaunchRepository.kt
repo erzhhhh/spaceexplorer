@@ -1,8 +1,8 @@
 package com.example.spaceexplorer.domain.repository
 
-import com.example.spaceexplorer.domain.model.Article
+import com.example.spaceexplorer.domain.model.FeedArticle
 
 interface LaunchRepository {
 
-    suspend fun getLaunches() : List<Article>
+    suspend fun getLaunches() : List<FeedArticle>
 }

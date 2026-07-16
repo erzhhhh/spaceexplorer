@@ -1,5 +1,5 @@
 package com.example.spaceexplorer.data.remote.dto
 
 data class LaunchDto(
-    val results: List<ArticleDto>?
+    val results: List<FeedArticleDto>?
 )

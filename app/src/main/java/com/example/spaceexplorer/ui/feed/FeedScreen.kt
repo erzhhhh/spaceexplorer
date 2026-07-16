@@ -18,7 +18,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.example.spaceexplorer.R
-import com.example.spaceexplorer.domain.model.Article
+import com.example.spaceexplorer.domain.model.FeedArticle
 import com.example.spaceexplorer.ui.components.ArticleCard
 import com.example.spaceexplorer.ui.components.BottomErrorIndicator
 import com.example.spaceexplorer.ui.components.BottomLoadingIndicator
@@ -32,7 +32,7 @@ fun FeedScreen(
     modifier: Modifier = Modifier
 ) {
 
-    val lazyPagingItems: LazyPagingItems<Article> = viewModel.feed.collectAsLazyPagingItems()
+    val lazyPagingItems: LazyPagingItems<FeedArticle> = viewModel.feed.collectAsLazyPagingItems()
 
     val isListEmpty = lazyPagingItems.itemCount == 0
 
@@ -52,7 +52,7 @@ fun FeedScreen(
 @Composable
 fun FeedList(
     modifier: Modifier = Modifier,
-    lazyPagingItems: LazyPagingItems<Article>
+    lazyPagingItems: LazyPagingItems<FeedArticle>
 ) {
 
     @OptIn(ExperimentalMaterial3Api::class)

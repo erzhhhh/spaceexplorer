@@ -1,6 +1,6 @@
 package com.example.spaceexplorer.di
 
-import com.example.spaceexplorer.data.local.database.ArticleDao
+import com.example.spaceexplorer.data.local.database.FeedDao
 import com.example.spaceexplorer.data.remote.api.SpaceExplorerApi
 import com.example.spaceexplorer.data.repository.FeedRepositoryImpl
 import com.example.spaceexplorer.domain.repository.FeedRepository
@@ -20,7 +20,7 @@ class FeedModule {
     @ActivityRetainedScoped
     fun provideFeedRepository(
         api: SpaceExplorerApi,
-        dao: ArticleDao,
+        dao: FeedDao,
         settingsRepository: SettingsRepository
     ): FeedRepository {
         return FeedRepositoryImpl(api = api, dao = dao, settingsRepository = settingsRepository)

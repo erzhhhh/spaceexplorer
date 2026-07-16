@@ -3,10 +3,10 @@ package com.example.spaceexplorer.data.remote.dto
 import com.google.gson.annotations.SerializedName
 
 data class FeedDto(
-    val results: List<ArticleDto>?
+    val results: List<FeedArticleDto>?
 )
 
-data class ArticleDto(
+data class FeedArticleDto(
     val id: Int?,
     val title: String?,
     val authors: List<AuthorDto>?,
