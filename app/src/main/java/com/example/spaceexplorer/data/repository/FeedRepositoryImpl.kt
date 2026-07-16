@@ -65,5 +65,8 @@ class FeedRepositoryImpl @Inject constructor(
             ),
             pagingSourceFactory = { InMemoryFeedPagingSource(api) }
         ).flow
+            .map { pagingData ->
+                pagingData.map { it.toDomain() }
+            }
     }
 }

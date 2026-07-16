@@ -1,6 +1,5 @@
 package com.example.spaceexplorer.data.local
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -15,11 +14,13 @@ import retrofit2.HttpException
 
 @OptIn(ExperimentalPagingApi::class)
 class FeedRemoteMediator(
-    private val api: SpaceExplorerApi, private val dao: ArticleDao
+    private val api: SpaceExplorerApi,
+    private val dao: ArticleDao
 ) : RemoteMediator<Int, ArticleEntity>() {
 
     override suspend fun load(
-        loadType: LoadType, state: PagingState<Int, ArticleEntity>
+        loadType: LoadType,
+        state: PagingState<Int, ArticleEntity>
     ): MediatorResult {
 
         return try {
