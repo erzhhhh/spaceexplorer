@@ -1,7 +1,7 @@
 package com.example.spaceexplorer.domain.model
 
-data class Launch(
-    val id: String,
+data class LaunchArticle(
+    val id: Int,
     val title: String,
     val authors: List<Author>,
     val url: String,

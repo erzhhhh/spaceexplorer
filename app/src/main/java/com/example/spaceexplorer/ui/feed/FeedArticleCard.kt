@@ -1,4 +1,4 @@
-package com.example.spaceexplorer.ui.components
+package com.example.spaceexplorer.ui.feed
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,7 +18,7 @@ import com.example.spaceexplorer.domain.model.FeedArticle
 import com.example.spaceexplorer.domain.model.Author
 
 @Composable
-fun ArticleCard(
+fun FeedArticleCard(
     article: FeedArticle,
     modifier: Modifier = Modifier
 ) {
@@ -50,8 +50,8 @@ fun ArticleCard(
     showBackground = true,
 )
 @Composable
-fun ArticleCardPreview() {
-    ArticleCard(
+fun FeedArticleCardPreview() {
+    FeedArticleCard(
         article = FeedArticle(
             id = 1,
             title = "Title",

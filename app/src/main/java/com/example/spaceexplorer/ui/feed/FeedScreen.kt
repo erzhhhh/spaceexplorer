@@ -19,7 +19,6 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.example.spaceexplorer.R
 import com.example.spaceexplorer.domain.model.FeedArticle
-import com.example.spaceexplorer.ui.components.ArticleCard
 import com.example.spaceexplorer.ui.components.BottomErrorIndicator
 import com.example.spaceexplorer.ui.components.BottomLoadingIndicator
 import com.example.spaceexplorer.ui.components.FullScreenError
@@ -36,6 +35,7 @@ fun FeedScreen(
 
     val isListEmpty = lazyPagingItems.itemCount == 0
 
+    // refresh status is only when loading for the first time or pull-to-refresh
     val refreshState = lazyPagingItems.loadState.refresh
 
     when {
@@ -79,11 +79,12 @@ fun FeedList(
             ) { index ->
                 val article = lazyPagingItems[index]
                 if (article != null) {
-                    ArticleCard(article)
+                    FeedArticleCard(article)
                 }
             }
 
-            // shows on the bottom of the list
+            // append status is only when loading more data on the bottom of the list
+            // prepend status is only when loading more data at the top of the list
             when (val appendState = lazyPagingItems.loadState.append) {
                 is LoadState.Loading -> item { BottomLoadingIndicator() }
                 is LoadState.Error -> item {
