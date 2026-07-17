@@ -3,6 +3,7 @@ package com.example.spaceexplorer.di
 import com.example.spaceexplorer.data.remote.api.SpaceExplorerApi
 import com.example.spaceexplorer.data.repository.LaunchRepositoryImpl
 import com.example.spaceexplorer.domain.repository.LaunchRepository
+import com.example.spaceexplorer.domain.repository.SettingsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +17,13 @@ class LaunchModule {
 
     @Provides
     @ActivityRetainedScoped
-    fun provideLaunchRepository(spaceExplorerApi: SpaceExplorerApi): LaunchRepository {
-        return LaunchRepositoryImpl(spaceExplorerApi)
+    fun provideLaunchRepository(
+        spaceExplorerApi: SpaceExplorerApi,
+        settingsRepository: SettingsRepository
+    ): LaunchRepository {
+        return LaunchRepositoryImpl(
+            spaceExplorerApi = spaceExplorerApi,
+            settingsRepository = settingsRepository
+        )
     }
 }

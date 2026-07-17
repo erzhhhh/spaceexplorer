@@ -1,8 +1,10 @@
 package com.example.spaceexplorer.domain.repository
 
-import com.example.spaceexplorer.domain.model.FeedArticle
+import androidx.paging.PagingData
+import com.example.spaceexplorer.domain.model.LaunchArticle
+import kotlinx.coroutines.flow.Flow
 
 interface LaunchRepository {
 
-    suspend fun getLaunches() : List<FeedArticle>
+    val launchArticleFlow: Flow<PagingData<LaunchArticle>>
 }

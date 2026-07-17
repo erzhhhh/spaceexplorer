@@ -13,5 +13,7 @@ interface SpaceExplorerApi {
     ): FeedDto
 
     @GET("reports")
-    suspend fun loadLaunch(): LaunchDto
+    suspend fun loadLaunchCursor(
+        @Query("published_at_lt") publishedAtLt: String?
+    ): LaunchDto
 }
