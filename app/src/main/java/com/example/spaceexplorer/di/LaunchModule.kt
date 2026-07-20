@@ -1,5 +1,6 @@
 package com.example.spaceexplorer.di
 
+import com.example.spaceexplorer.data.local.database.LaunchDao
 import com.example.spaceexplorer.data.remote.api.SpaceExplorerApi
 import com.example.spaceexplorer.data.repository.LaunchRepositoryImpl
 import com.example.spaceexplorer.domain.repository.LaunchRepository
@@ -19,10 +20,12 @@ class LaunchModule {
     @ActivityRetainedScoped
     fun provideLaunchRepository(
         spaceExplorerApi: SpaceExplorerApi,
+        launchDao: LaunchDao,
         settingsRepository: SettingsRepository
     ): LaunchRepository {
         return LaunchRepositoryImpl(
             spaceExplorerApi = spaceExplorerApi,
+            launchDao = launchDao,
             settingsRepository = settingsRepository
         )
     }

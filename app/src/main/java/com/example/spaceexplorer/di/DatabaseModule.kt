@@ -26,5 +26,9 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideArticleDao(database: AppDatabase) = database.articleDao()
+    fun provideFeedDao(database: AppDatabase) = database.feedDao()
+
+    @Provides
+    @Singleton
+    fun provideLaunchDao(database: AppDatabase) = database.launchDao()
 }
