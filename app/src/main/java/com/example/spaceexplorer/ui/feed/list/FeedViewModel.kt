@@ -1,4 +1,4 @@
-package com.example.spaceexplorer.ui.feed
+package com.example.spaceexplorer.ui.feed.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.androidx.room.paging)
     implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson.converter)
     implementation(libs.hilt.android)
