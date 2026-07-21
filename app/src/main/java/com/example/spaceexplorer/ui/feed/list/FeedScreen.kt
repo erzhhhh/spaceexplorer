@@ -1,4 +1,4 @@
-package com.example.spaceexplorer.ui.feed
+package com.example.spaceexplorer.ui.feed.list
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -23,6 +23,7 @@ import com.example.spaceexplorer.ui.components.BottomErrorIndicator
 import com.example.spaceexplorer.ui.components.BottomLoadingIndicator
 import com.example.spaceexplorer.ui.components.FullScreenError
 import com.example.spaceexplorer.ui.components.FullScreenLoading
+import com.example.spaceexplorer.ui.feed.list.FeedViewModel
 
 
 @Composable
@@ -45,7 +46,10 @@ fun FeedScreen(
             errorMessage = refreshState.error.message ?: "Unknown error",
             onRetry = { lazyPagingItems.retry() })
 
-        else -> FeedList(modifier = modifier, lazyPagingItems = lazyPagingItems)
+        else -> FeedList(
+            modifier = modifier,
+            lazyPagingItems = lazyPagingItems
+        )
     }
 }
 
@@ -79,7 +83,9 @@ fun FeedList(
             ) { index ->
                 val article = lazyPagingItems[index]
                 if (article != null) {
-                    FeedArticleCard(article)
+                    FeedArticleCard(
+                        article = article
+                    )
                 }
             }
 

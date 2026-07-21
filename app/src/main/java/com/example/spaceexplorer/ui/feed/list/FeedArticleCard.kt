@@ -1,4 +1,4 @@
-package com.example.spaceexplorer.ui.feed
+package com.example.spaceexplorer.ui.feed.list
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,8 +14,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.spaceexplorer.domain.model.FeedArticle
 import com.example.spaceexplorer.domain.model.Author
+import com.example.spaceexplorer.domain.model.FeedArticle
 
 @Composable
 fun FeedArticleCard(
@@ -23,7 +23,8 @@ fun FeedArticleCard(
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(
@@ -68,6 +69,6 @@ fun FeedArticleCardPreview() {
             newsSite = "SpaceX",
             summary = "Summary",
             publishedAt = "2023-05-01T12:00:00Z",
-        )
+        ),
     )
 }
