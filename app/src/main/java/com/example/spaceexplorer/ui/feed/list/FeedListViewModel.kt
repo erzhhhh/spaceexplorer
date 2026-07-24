@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
-class FeedViewModel @Inject constructor(private val feedRepository: FeedRepository) : ViewModel() {
+class FeedListViewModel @Inject constructor(feedRepository: FeedRepository) : ViewModel() {
 
     val feed: Flow<PagingData<FeedArticle>> = feedRepository.feedArticlesFlow
         .cachedIn(viewModelScope)

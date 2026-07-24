@@ -1,5 +1,6 @@
 package com.example.spaceexplorer.ui.feed.list
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,12 +20,16 @@ import com.example.spaceexplorer.domain.model.FeedArticle
 
 @Composable
 fun FeedArticleCard(
+    modifier: Modifier = Modifier,
     article: FeedArticle,
-    modifier: Modifier = Modifier
+    onArticleClick: (Int) -> Unit,
 ) {
     Card(
         modifier = modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable {
+                onArticleClick(article.id)
+            },
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(
@@ -70,5 +75,6 @@ fun FeedArticleCardPreview() {
             summary = "Summary",
             publishedAt = "2023-05-01T12:00:00Z",
         ),
+        onArticleClick = {}
     )
 }
