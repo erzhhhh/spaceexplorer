@@ -70,10 +70,15 @@ private fun SpaceExplorerNavHost(navHostController: NavHostController) {
         navController = navHostController,
         startDestination = AppDestinations.HOME.route,
         builder = {
-            // Home section
+            // Feed section
             composable(route = AppDestinations.HOME.route) {
                 FeedScreen(
-                    viewModel = hiltViewModel()
+                    viewModel = hiltViewModel(),
+                    onArticleClick = { id ->
+                        navHostController.navigate(
+                            route = FeedArticleDetailRoute.createRoute(articleId = id)
+                        )
+                    }
                 )
             }
 
