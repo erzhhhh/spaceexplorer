@@ -3,7 +3,7 @@ package com.example.spaceexplorer.di
 import com.example.spaceexplorer.data.local.database.FavoritesDao
 import com.example.spaceexplorer.data.local.database.FeedDao
 import com.example.spaceexplorer.data.remote.api.SpaceExplorerApi
-import com.example.spaceexplorer.data.repository.FeedArticleDetailRepositoryImpl
+import com.example.spaceexplorer.data.repository.FeedDetailsRepositoryImpl
 import com.example.spaceexplorer.data.repository.FeedRepositoryImpl
 import com.example.spaceexplorer.domain.repository.FeedArticleDetailRepository
 import com.example.spaceexplorer.domain.repository.FeedRepository
@@ -37,7 +37,7 @@ class FeedModule {
         favoritesDao: FavoritesDao,
         settingsRepository: SettingsRepository
     ): FeedArticleDetailRepository {
-        return FeedArticleDetailRepositoryImpl(
+        return FeedDetailsRepositoryImpl(
             api = api,
             feedDao = feedDao,
             favoritesDao = favoritesDao,

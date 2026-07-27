@@ -19,6 +19,9 @@ interface FeedDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertArticles(articles: List<FeedArticleEntity>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertArticle(article: FeedArticleEntity)
+
     @Query("DELETE FROM feed_articles")
     suspend fun deleteAllArticles()
 }
