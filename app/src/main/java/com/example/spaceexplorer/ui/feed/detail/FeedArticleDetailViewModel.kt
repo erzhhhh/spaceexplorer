@@ -13,10 +13,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class FeedArticleDetailViewModel @Inject constructor(
-    feedArticleDetailRepository: FeedArticleDetailRepository,
+    private val feedArticleDetailRepository: FeedArticleDetailRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -33,6 +34,12 @@ class FeedArticleDetailViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = FeedArticleState.Loading
         )
+
+    fun saveArticle(article: FeedArticle) {
+        viewModelScope.launch {
+            feedArticleDetailRepository.saveToFavorites(article)
+        }
+    }
 }
 
 sealed interface FeedArticleState {

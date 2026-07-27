@@ -36,7 +36,8 @@ import com.example.spaceexplorer.ui.components.FullScreenLoading
 
 @Composable
 fun FeedArticleDetailScreen(
-    viewModel: FeedArticleDetailViewModel = hiltViewModel()
+    viewModel: FeedArticleDetailViewModel = hiltViewModel(),
+    onBackClick: () -> Unit,
 ) {
     // First, we retrieve information from the database. If the database has no info (a deep link came in), then we go to the internet.
     val stateCompose: FeedArticleState by viewModel.stateFlow.collectAsStateWithLifecycle()
@@ -59,12 +60,24 @@ fun FeedArticleDetailScreen(
             errorMessage = feedArticleState.errorMessage,
             onRetry = {})
 
-        is FeedArticleState.Loaded -> ArticleDetailsScreen(article = feedArticleState.article)
+        is FeedArticleState.Loaded -> ArticleDetailsScreen(
+            article = feedArticleState.article,
+            onBackClick = onBackClick,
+            onFavoriteClick = {
+                viewModel.saveArticle(
+                    feedArticleState.article
+                )
+            })
     }
 }
 
 @Composable
-private fun ArticleDetailsScreen(modifier: Modifier = Modifier, article: FeedArticle) {
+private fun ArticleDetailsScreen(
+    modifier: Modifier = Modifier,
+    article: FeedArticle,
+    onBackClick: () -> Unit,
+    onFavoriteClick: () -> Unit
+) {
     Scaffold { innerPadding ->
         Column(
             modifier = modifier
@@ -98,7 +111,9 @@ private fun ArticleDetailsScreen(modifier: Modifier = Modifier, article: FeedArt
                         )
                 )
                 IconButton(
-                    onClick = {},
+                    onClick = {
+                        onBackClick()
+                    },
                     modifier = Modifier
                         .align(Alignment.TopStart)
                         .padding(8.dp)
@@ -111,7 +126,9 @@ private fun ArticleDetailsScreen(modifier: Modifier = Modifier, article: FeedArt
                     )
                 }
                 IconButton(
-                    onClick = {},
+                    onClick = {
+                        onFavoriteClick()
+                    },
                     modifier = Modifier
                         .align(Alignment.TopEnd)
                         .padding(8.dp)

@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.Flow
 interface FeedArticleDetailRepository {
 
     fun getFeedArticle(articleId: String): Flow<FeedArticle>
+
+    suspend fun saveToFavorites(article: FeedArticle)
 }

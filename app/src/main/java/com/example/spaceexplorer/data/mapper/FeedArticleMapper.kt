@@ -1,10 +1,11 @@
 package com.example.spaceexplorer.data.mapper
 
+import com.example.spaceexplorer.data.local.database.FavoriteArticleEntity
 import com.example.spaceexplorer.data.local.database.FeedArticleEntity
-import com.example.spaceexplorer.data.remote.dto.FeedArticleDto
 import com.example.spaceexplorer.data.remote.dto.AuthorDto
-import com.example.spaceexplorer.domain.model.FeedArticle
+import com.example.spaceexplorer.data.remote.dto.FeedArticleDto
 import com.example.spaceexplorer.domain.model.Author
+import com.example.spaceexplorer.domain.model.FeedArticle
 
 fun FeedArticleDto.toDomain(): FeedArticle = FeedArticle(
     id = id ?: 0,
@@ -28,6 +29,16 @@ fun FeedArticleDto.toEntity(): FeedArticleEntity = FeedArticleEntity(
 )
 
 fun FeedArticle.toEntity(): FeedArticleEntity = FeedArticleEntity(
+    id = id,
+    title = title,
+    url = url,
+    imageUrl = imageUrl,
+    newsSite = newsSite,
+    summary = summary,
+    publishedAt = publishedAt
+)
+
+fun FeedArticle.toFavoriteEntity(): FavoriteArticleEntity = FavoriteArticleEntity(
     id = id,
     title = title,
     url = url,
