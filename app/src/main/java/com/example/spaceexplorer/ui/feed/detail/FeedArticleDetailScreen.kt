@@ -38,22 +38,23 @@ import com.example.spaceexplorer.ui.components.FullScreenLoading
 fun FeedArticleDetailScreen(
     viewModel: FeedArticleDetailViewModel = hiltViewModel()
 ) {
-    // Сначала достаем информацию из базы. Если в базе нет инфы (пришел диплинк), то идем в интернет
-
+    // First, we retrieve information from the database. If the database has no info (a deep link came in), then we go to the internet.
     val stateCompose: FeedArticleState by viewModel.stateFlow.collectAsStateWithLifecycle()
 
-    // stateCompose технически каждый раз читается через getValue() делегата — компилятор не может
-    // гарантировать, что между строкой is FeedArticleState.Error -> и следующей строкой stateCompose.errorMessage
-    // значение не изменится на другое. Поэтому без сохранения в отдельную val — smart cast не срабатывает, и компилятор требует ручной as.
-    // Когда ты пишешь when (val state = stateCompose) — state это уже обычная локальная неизменяемая val,
-    // компилятор гарантированно знает, что она не поменяется, и smart cast работает нормально.
+    //    stateCompose is read every time through the delegate's getValue() — the compiler can't guarantee
+    //    that between the line is FeedArticleState.Error -> and the next line stateCompose.errorMessage
+    //    the value won't change to something else. So without saving it into a separate val, the smart
+    //    cast doesn't kick in, and the compiler requires a manual as.
+    //    When you write when (val state = stateCompose), state is now a regular local immutable val —
+    //    the compiler is guaranteed to know it won't change, and the smart cast works normally.
     when (val feedArticleState = stateCompose) {
-        // Loading - это единственный экземпляр, готовый объект. Поэтому в when можно сравнивать напрямую через == (что и происходит без is)
+        // Loading is a single instance, a ready-made object. That's why in `when` it can be compared
+        // directly using `==` (which is what happens without `is`).
         FeedArticleState.Loading -> FullScreenLoading()
 
-        // Это не значение, а класс (шаблон для создания). "Loaded" не может использоваться как значение — нужны аргументы конструктора, а у тебя
-        // нет конкретного article, чтобы это сделать. is здесь означает: "проверь, что stateCompose является экземпляром класса Loaded, независимо
-        // от того, какие внутри данные (article)".
+        // This is not a value, but a class (a template for creation). "Loaded" can't be used as a value — it requires constructor arguments,
+        // and you don't have a specific article to provide. `is` here means: "check that stateCompose is an instance of the Loaded class,
+        // regardless of what data is inside it (article)."
         is FeedArticleState.Error -> FullScreenError(
             errorMessage = feedArticleState.errorMessage,
             onRetry = {})
@@ -80,7 +81,6 @@ private fun ArticleDetailsScreen(modifier: Modifier = Modifier, article: FeedArt
                     model = article.imageUrl,
                     contentDescription = article.title,
                     modifier = Modifier
-                        // занимает весь размер Box
                         .matchParentSize(),
                     contentScale = ContentScale.Crop
                 )
@@ -90,9 +90,9 @@ private fun ArticleDetailsScreen(modifier: Modifier = Modifier, article: FeedArt
                         .background(
                             Brush.verticalGradient(
                                 colorStops = arrayOf(
-                                    0.0f to Color.Transparent,       // 0% высоты — прозрачно
-                                    0.5f to Color.Transparent,       // 50% высоты — всё ещё прозрачно
-                                    1.0f to Color.Black.copy(alpha = 0.8f) // 100% (самый низ) — тёмный
+                                    0.0f to Color.Transparent,
+                                    0.5f to Color.Transparent,
+                                    1.0f to Color.Black.copy(alpha = 0.8f)
                                 )
                             )
                         )
