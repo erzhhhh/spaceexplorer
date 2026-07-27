@@ -83,7 +83,9 @@ private fun SpaceExplorerNavHost(navHostController: NavHostController) {
             }
 
             composable(route = FeedArticleDetailRoute.ROUTE) {
-                FeedArticleDetailScreen()
+                FeedArticleDetailScreen(
+                    onBackClick = { navHostController.popBackStack() }
+                )
             }
 
             // Launches section

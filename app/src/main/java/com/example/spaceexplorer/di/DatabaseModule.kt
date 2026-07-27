@@ -3,6 +3,7 @@ package com.example.spaceexplorer.di
 import android.content.Context
 import androidx.room.Room
 import com.example.spaceexplorer.data.local.database.AppDatabase
+import com.example.spaceexplorer.data.local.database.MIGRATION_1_2
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +22,9 @@ object DatabaseModule {
             context = applicationContext,
             klass = AppDatabase::class.java,
             name = "space_explorer_db"
-        ).build()
+        )
+            .addMigrations(MIGRATION_1_2)
+            .build()
     }
 
     @Provides
@@ -31,4 +34,8 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideLaunchDao(database: AppDatabase) = database.launchDao()
+
+    @Provides
+    @Singleton
+    fun provideFavoritesDao(database: AppDatabase) = database.favoritesDao()
 }
