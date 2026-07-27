@@ -21,7 +21,10 @@ enum class AppDestinations(
 
 // Separate from enum, because it's not a top-level destination
 object FeedArticleDetailRoute {
-    const val ROUTE = "article/articleId"
+    const val ARTICLE_ID_ARG = "articleId"
 
-    fun createRoute(articleId: String) = "article/$articleId"
+    // TODO use a constant
+    const val ROUTE = "article/{articleId}"
+
+    fun createRoute(articleId: Int) = "article/$articleId"
 }

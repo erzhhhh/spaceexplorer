@@ -23,13 +23,13 @@ import com.example.spaceexplorer.ui.components.BottomErrorIndicator
 import com.example.spaceexplorer.ui.components.BottomLoadingIndicator
 import com.example.spaceexplorer.ui.components.FullScreenError
 import com.example.spaceexplorer.ui.components.FullScreenLoading
-import com.example.spaceexplorer.ui.feed.list.FeedViewModel
 
 
 @Composable
 fun FeedScreen(
-    viewModel: FeedViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: FeedListViewModel,
+    onArticleClick: (Int) -> Unit
 ) {
 
     val lazyPagingItems: LazyPagingItems<FeedArticle> = viewModel.feed.collectAsLazyPagingItems()
@@ -46,17 +46,19 @@ fun FeedScreen(
             errorMessage = refreshState.error.message ?: "Unknown error",
             onRetry = { lazyPagingItems.retry() })
 
-        else -> FeedList(
+        else -> FeedListScreen(
             modifier = modifier,
-            lazyPagingItems = lazyPagingItems
+            lazyPagingItems = lazyPagingItems,
+            onArticleClick = onArticleClick
         )
     }
 }
 
 @Composable
-fun FeedList(
+private fun FeedListScreen(
     modifier: Modifier = Modifier,
-    lazyPagingItems: LazyPagingItems<FeedArticle>
+    lazyPagingItems: LazyPagingItems<FeedArticle>,
+    onArticleClick: (Int) -> Unit
 ) {
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -84,7 +86,8 @@ fun FeedList(
                 val article = lazyPagingItems[index]
                 if (article != null) {
                     FeedArticleCard(
-                        article = article
+                        article = article,
+                        onArticleClick = onArticleClick
                     )
                 }
             }

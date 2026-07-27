@@ -22,7 +22,7 @@ import com.example.spaceexplorer.R
 
 @Composable
 fun FullScreenError(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     errorMessage: String,
     onRetry: () -> Unit
 ) {
