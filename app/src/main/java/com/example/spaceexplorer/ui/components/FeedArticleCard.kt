@@ -1,4 +1,4 @@
-package com.example.spaceexplorer.ui.feed.list
+package com.example.spaceexplorer.ui.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column

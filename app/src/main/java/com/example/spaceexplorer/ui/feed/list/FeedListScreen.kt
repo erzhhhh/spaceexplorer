@@ -21,6 +21,7 @@ import com.example.spaceexplorer.R
 import com.example.spaceexplorer.domain.model.FeedArticle
 import com.example.spaceexplorer.ui.components.BottomErrorIndicator
 import com.example.spaceexplorer.ui.components.BottomLoadingIndicator
+import com.example.spaceexplorer.ui.components.FeedArticleCard
 import com.example.spaceexplorer.ui.components.FullScreenError
 import com.example.spaceexplorer.ui.components.FullScreenLoading
 
