@@ -1,12 +1,11 @@
 package com.example.spaceexplorer.data.local.database
 
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
+import androidx.room.Upsert
 
 @Dao
 interface FavoritesDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Upsert
     suspend fun insertArticle(article: FavoriteArticleEntity)
 }

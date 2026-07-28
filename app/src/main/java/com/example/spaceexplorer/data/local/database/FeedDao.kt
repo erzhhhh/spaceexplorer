@@ -2,9 +2,8 @@ package com.example.spaceexplorer.data.local.database
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Upsert
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -16,8 +15,11 @@ interface FeedDao {
     @Query("SELECT * FROM feed_articles WHERE id = :articleId")
     fun getArticle(articleId: String): Flow<FeedArticleEntity>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Upsert
     suspend fun insertArticles(articles: List<FeedArticleEntity>)
+
+    @Upsert
+    suspend fun insertArticle(article: FeedArticleEntity)
 
     @Query("DELETE FROM feed_articles")
     suspend fun deleteAllArticles()
