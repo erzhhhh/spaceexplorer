@@ -95,7 +95,7 @@ private fun SpaceExplorerNavHost(navHostController: NavHostController) {
 
             // Favorites section
             composable(route = AppDestinations.FAVORITES.route) {
-                FavoritesScreen()
+                FavoritesScreen(viewModel = hiltViewModel())
             }
 
             // Settings section

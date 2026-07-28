@@ -58,6 +58,7 @@ fun FeedArticleDetailScreen(
         // regardless of what data is inside it (article)."
         is FeedArticleState.Error -> FullScreenError(
             errorMessage = feedArticleState.errorMessage,
+            // TODO process retry click
             onRetry = {})
 
         is FeedArticleState.Loaded -> ArticleDetailsScreen(
