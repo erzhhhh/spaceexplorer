@@ -95,7 +95,14 @@ private fun SpaceExplorerNavHost(navHostController: NavHostController) {
 
             // Favorites section
             composable(route = AppDestinations.FAVORITES.route) {
-                FavoritesScreen(viewModel = hiltViewModel())
+                FavoritesScreen(
+                    viewModel = hiltViewModel(),
+                    onArticleClick = { id ->
+                        navHostController.navigate(
+                            route = FeedArticleDetailRoute.createRoute(articleId = id)
+                        )
+                    }
+                )
             }
 
             // Settings section

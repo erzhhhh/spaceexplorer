@@ -20,7 +20,8 @@ import com.example.spaceexplorer.ui.components.FullScreenLoading
 @Composable
 fun FavoritesScreen(
     viewModel: FavoritesListViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onArticleClick: (Int) -> Unit
 ) {
 
     val uiState by viewModel.stateFlow.collectAsStateWithLifecycle()
@@ -36,14 +37,19 @@ fun FavoritesScreen(
         is FavoritesListState.Loaded -> FavoritesListScreen(
             favoriteList = state.favoriteList,
             modifier = modifier,
+            onArticleClick = onArticleClick
         )
     }
 }
 
 @Composable
-fun FavoritesListScreen(favoriteList: List<FeedArticle>, modifier: Modifier = Modifier) {
+fun FavoritesListScreen(
+    favoriteList: List<FeedArticle>,
+    modifier: Modifier = Modifier,
+    onArticleClick: (Int) -> Unit
+) {
     LazyColumn(
-        modifier = Modifier,
+        modifier = modifier,
         contentPadding = PaddingValues(
             start = 16.dp,
             end = 16.dp,
@@ -57,8 +63,9 @@ fun FavoritesListScreen(favoriteList: List<FeedArticle>, modifier: Modifier = Mo
         items(favoriteList) { article ->
             FeedArticleCard(
                 article = article,
-                // TODO on article click
-                onArticleClick = {}
+                onArticleClick = {
+                    onArticleClick(article.id)
+                }
             )
         }
     }
