@@ -3,6 +3,7 @@ package com.example.spaceexplorer
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteType
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
@@ -29,10 +30,10 @@ fun SpaceExplorerApp() {
 
     val isTopLevelDestination: Boolean = AppDestinations.entries.any { it.route == currentRoute }
 
-    if (isTopLevelDestination) {
-        NavigationSuiteScaffold(
-            // Draw navBar items and resolve clicks on them
-            navigationSuiteItems = {
+    NavigationSuiteScaffold(
+        // Draw navBar items and resolve clicks on them
+        navigationSuiteItems = {
+            if (isTopLevelDestination) {
                 AppDestinations.entries.forEach { destination ->
                     item(
                         icon = { Icon(destination.icon, contentDescription = destination.label) },
@@ -53,15 +54,18 @@ fun SpaceExplorerApp() {
                         }
                     )
                 }
-            },
-            // Draw on the remaining area of the screen
-            content = {
-                SpaceExplorerNavHost(navController)
             }
-        )
-    } else {
-        SpaceExplorerNavHost(navController)
-    }
+        },
+        layoutType = if (isTopLevelDestination) {
+            NavigationSuiteType.NavigationBar
+        } else {
+            NavigationSuiteType.None
+        },
+        // Draw on the remaining area of the screen
+        content = {
+            SpaceExplorerNavHost(navController)
+        }
+    )
 }
 
 @Composable
