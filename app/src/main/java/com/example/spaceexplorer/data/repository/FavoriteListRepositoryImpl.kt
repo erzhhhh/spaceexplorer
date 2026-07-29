@@ -1,5 +1,9 @@
 package com.example.spaceexplorer.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.example.spaceexplorer.data.local.database.FavoritesDao
 import com.example.spaceexplorer.data.mapper.toDomain
 import com.example.spaceexplorer.domain.model.FeedArticle
@@ -12,8 +16,16 @@ class FavoritesListRepositoryImpl @Inject constructor(
     private val dao: FavoritesDao
 ) : FavoritesListRepository {
 
-    override fun getFavoriteList(): Flow<List<FeedArticle>> {
-        return dao.getFavoriteArticles()
-            .map { list -> list.map { favoriteEntity -> favoriteEntity.toDomain() } }
+    override val favoriteArticlesFlow: Flow<PagingData<FeedArticle>> =
+        cachedArticlesPager()
+
+    private fun cachedArticlesPager(): Flow<PagingData<FeedArticle>> {
+        return Pager(
+            config = PagingConfig(pageSize = 10, enablePlaceholders = false),
+            pagingSourceFactory = { dao.getFavoriteArticles() },
+        ).flow
+            .map { pagingData ->
+                pagingData.map { it.toDomain() }
+            }
     }
 }
