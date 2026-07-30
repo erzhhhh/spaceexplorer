@@ -18,7 +18,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.spaceexplorer.ui.favorites.FavoritesScreen
 import com.example.spaceexplorer.ui.feed.detail.FeedArticleDetailScreen
 import com.example.spaceexplorer.ui.feed.list.FeedScreen
-import com.example.spaceexplorer.ui.launches.LaunchesScreen
+import com.example.spaceexplorer.ui.launches.detail.LaunchArticleDetailScreen
+import com.example.spaceexplorer.ui.launches.list.LaunchListScreen
 import com.example.spaceexplorer.ui.settings.SettingsScreen
 
 @PreviewScreenSizes
@@ -94,7 +95,20 @@ private fun SpaceExplorerNavHost(navHostController: NavHostController) {
 
             // Launches section
             composable(route = AppDestinations.LAUNCHES.route) {
-                LaunchesScreen(viewModel = hiltViewModel())
+                LaunchListScreen(
+                    viewModel = hiltViewModel(),
+                    onArticleClick = { id ->
+                        navHostController.navigate(
+                            route = LaunchArticleDetailRoute.createRoute(articleId = id)
+                        )
+                    }
+                )
+            }
+
+            composable(route = LaunchArticleDetailRoute.ROUTE) {
+                LaunchArticleDetailScreen(
+                    onBackClick = { navHostController.popBackStack() }
+                )
             }
 
             // Favorites section
