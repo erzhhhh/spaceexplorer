@@ -1,4 +1,4 @@
-package com.example.spaceexplorer.ui.launches
+package com.example.spaceexplorer.ui.launches.list
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,9 +25,10 @@ import com.example.spaceexplorer.ui.components.FullScreenError
 import com.example.spaceexplorer.ui.components.FullScreenLoading
 
 @Composable
-fun LaunchesScreen(
-    viewModel: LaunchesViewModel,
-    modifier: Modifier = Modifier
+fun LaunchListScreen(
+    viewModel: LaunchListViewModel,
+    modifier: Modifier = Modifier,
+    onArticleClick: (Int) -> Unit
 ) {
 
     val lazyPagingItems: LazyPagingItems<LaunchArticle> =
@@ -46,13 +47,21 @@ fun LaunchesScreen(
             onRetry = { lazyPagingItems.retry() }
         )
 
-        else -> LaunchList(modifier = Modifier, lazyPagingItems = lazyPagingItems)
+        else -> LaunchList(
+            modifier = Modifier,
+            lazyPagingItems = lazyPagingItems,
+            onArticleClick = onArticleClick
+        )
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LaunchList(modifier: Modifier = Modifier, lazyPagingItems: LazyPagingItems<LaunchArticle>) {
+fun LaunchList(
+    modifier: Modifier = Modifier,
+    lazyPagingItems: LazyPagingItems<LaunchArticle>,
+    onArticleClick: (Int) -> Unit
+) {
     PullToRefreshBox(
         isRefreshing = lazyPagingItems.loadState.refresh is LoadState.Loading,
         onRefresh = { lazyPagingItems.refresh() },
@@ -76,7 +85,10 @@ fun LaunchList(modifier: Modifier = Modifier, lazyPagingItems: LazyPagingItems<L
             ) { index ->
                 val article = lazyPagingItems[index]
                 if (article != null) {
-                    LaunchArticleCard(article)
+                    LaunchArticleCard(
+                        article = article,
+                        onArticleClick = onArticleClick
+                    )
                 }
             }
 

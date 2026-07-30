@@ -1,5 +1,6 @@
-package com.example.spaceexplorer.ui.launches
+package com.example.spaceexplorer.ui.launches.list
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,10 +21,15 @@ import com.example.spaceexplorer.domain.model.LaunchArticle
 @Composable
 fun LaunchArticleCard(
     article: LaunchArticle,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onArticleClick: (Int) -> Unit
 ) {
     Card(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable {
+                onArticleClick(article.id)
+            },
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(
@@ -68,6 +74,7 @@ fun LaunchArticleCardPreview() {
             newsSite = "SpaceX",
             summary = "Summary",
             publishedAt = "2023-05-01T12:00:00Z",
-        )
+        ),
+        onArticleClick = {}
     )
 }

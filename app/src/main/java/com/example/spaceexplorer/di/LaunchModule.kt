@@ -2,7 +2,9 @@ package com.example.spaceexplorer.di
 
 import com.example.spaceexplorer.data.local.database.LaunchDao
 import com.example.spaceexplorer.data.remote.api.SpaceExplorerApi
+import com.example.spaceexplorer.data.repository.LaunchDetailRepositoryImpl
 import com.example.spaceexplorer.data.repository.LaunchRepositoryImpl
+import com.example.spaceexplorer.domain.repository.LaunchDetailRepository
 import com.example.spaceexplorer.domain.repository.LaunchRepository
 import com.example.spaceexplorer.domain.repository.SettingsRepository
 import dagger.Module
@@ -25,6 +27,20 @@ class LaunchModule {
     ): LaunchRepository {
         return LaunchRepositoryImpl(
             spaceExplorerApi = spaceExplorerApi,
+            launchDao = launchDao,
+            settingsRepository = settingsRepository
+        )
+    }
+
+    @Provides
+    @ActivityRetainedScoped
+    fun provideLaunchDetailRepository(
+        spaceExplorerApi: SpaceExplorerApi,
+        launchDao: LaunchDao,
+        settingsRepository: SettingsRepository
+    ): LaunchDetailRepository {
+        return LaunchDetailRepositoryImpl(
+            api = spaceExplorerApi,
             launchDao = launchDao,
             settingsRepository = settingsRepository
         )

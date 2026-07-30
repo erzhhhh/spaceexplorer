@@ -42,6 +42,7 @@ class FeedDetailsRepositoryImpl(
     }
 
     private fun observeArticleWithRefresh(articleId: String): Flow<FeedArticle> = flow {
+        // FIXME: return immediate article from db. Refresh if in parallel
         try {
             val dto = api.getFeedArticle(articleId)
             feedDao.insertArticle(dto.toEntity())

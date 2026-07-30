@@ -1,4 +1,4 @@
-package com.example.spaceexplorer.ui.launches
+package com.example.spaceexplorer.ui.launches.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +11,7 @@ import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
 @HiltViewModel
-class LaunchesViewModel @Inject constructor(
+class LaunchListViewModel @Inject constructor(
     private val launchesRepository: LaunchRepository
 ) : ViewModel() {
 

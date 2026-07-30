@@ -21,10 +21,24 @@ enum class AppDestinations(
 
 // Separate from enum, because it's not a top-level destination
 object FeedArticleDetailRoute {
+    // We use this constant to prevent typos
     const val ARTICLE_ID_ARG = "articleId"
 
-    // TODO use a constant
-    const val ROUTE = "article/{articleId}"
+    const val ROUTE = "article/{$ARTICLE_ID_ARG}"
 
+    // This method is needed for building a route with a variable ArticleId
+    // If the route doesn't need a variable, we use a ROUTE constant
     fun createRoute(articleId: Int) = "article/$articleId"
+}
+
+object LaunchArticleDetailRoute {
+
+    // We use this constant to prevent typos
+    const val ARTICLE_ID_ARG = "articleId"
+
+    const val ROUTE = "report/{$ARTICLE_ID_ARG}"
+
+    // This method is needed for building a route with a variable ArticleId
+    // If the route doesn't need a variable, we use a ROUTE constant
+    fun createRoute(articleId: Int) = "report/$articleId"
 }
