@@ -1,5 +1,6 @@
 package com.example.spaceexplorer.ui.launches.detail
 
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,9 +10,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -25,10 +30,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
+import com.example.spaceexplorer.R
 import com.example.spaceexplorer.domain.model.LaunchArticle
 import com.example.spaceexplorer.ui.components.FullScreenError
 import com.example.spaceexplorer.ui.components.FullScreenLoading
@@ -66,7 +75,8 @@ private fun ArticleDetailsScreen(
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .padding(innerPadding),
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Box(
@@ -146,6 +156,23 @@ private fun ArticleDetailsScreen(
                 Text(
                     text = article.summary,
                     modifier = Modifier.padding(horizontal = 16.dp)
+                )
+            }
+            val context = LocalContext.current
+
+            Button(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Black.copy(alpha = 0.3f)),
+                onClick = {
+                    val intent = CustomTabsIntent.Builder()
+                        .build()
+                    intent.launchUrl(context, article.url.toUri())
+                }
+            ) {
+                Text(
+                    text = stringResource(R.string.read_in_full)
                 )
             }
         }
