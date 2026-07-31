@@ -17,6 +17,7 @@ datastore = "1.2.1"
 room = "2.8.4"
 paging = "3.5.0"
 navigation = "2.9.8"
+browser = "1.10.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,6 +45,7 @@ androidx-room-paging = { group = "androidx.room", name = "room-paging", version.
 androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
 androidx-paging-runtime-ktx = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "paging" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "browser" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-gson-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }

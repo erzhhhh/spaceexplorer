@@ -6,4 +6,5 @@
     <string name="settings_offline_caching">Offline Caching</string>
     <string name="feed_retry">Retry</string>
     <string name="feed_no_more_articles">No more articles</string>
+    <string name="read_in_full">Read in full</string>
 </resources>
