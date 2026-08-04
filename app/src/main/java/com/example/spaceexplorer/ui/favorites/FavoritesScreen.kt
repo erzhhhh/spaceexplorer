@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -50,30 +49,26 @@ fun FavoritesListScreen(
     modifier: Modifier = Modifier,
     onArticleClick: (Int) -> Unit
 ) {
-    PullToRefreshBox(
-        isRefreshing = lazyPagingItems.loadState.refresh is LoadState.Loading,
-        onRefresh = { lazyPagingItems.retry() }) {
-        LazyColumn(
-            modifier = modifier, contentPadding = PaddingValues(
-                start = 16.dp,
-                end = 16.dp,
-                bottom = 16.dp,
-                top = 16.dp + WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
-            ), verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            items(
-                count = lazyPagingItems.itemCount,
-                key = lazyPagingItems.itemKey { it.id },
-            ) { index ->
-                val article = lazyPagingItems[index]
-                if (article != null) {
-                    FeedArticleCard(
-                        article = article,
-                        onArticleClick = {
-                            onArticleClick(article.id)
-                        }
-                    )
-                }
+    LazyColumn(
+        modifier = modifier, contentPadding = PaddingValues(
+            start = 16.dp,
+            end = 16.dp,
+            bottom = 16.dp,
+            top = 16.dp + WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
+        ), verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        items(
+            count = lazyPagingItems.itemCount,
+            key = lazyPagingItems.itemKey { it.id },
+        ) { index ->
+            val article = lazyPagingItems[index]
+            if (article != null) {
+                FeedArticleCard(
+                    article = article,
+                    onArticleClick = {
+                        onArticleClick(article.id)
+                    }
+                )
             }
         }
     }
