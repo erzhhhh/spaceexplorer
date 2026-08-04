@@ -8,4 +8,6 @@ interface FeedArticleDetailRepository {
     fun getFeedArticle(articleId: String): Flow<FeedArticle>
 
     suspend fun saveToFavorites(article: FeedArticle)
+
+    suspend fun removeFromFavorites(articleId: Int)
 }

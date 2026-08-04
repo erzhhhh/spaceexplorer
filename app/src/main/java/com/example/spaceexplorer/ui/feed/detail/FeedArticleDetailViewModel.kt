@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.spaceexplorer.FeedArticleDetailRoute
 import com.example.spaceexplorer.domain.model.FeedArticle
+import com.example.spaceexplorer.domain.repository.FavoritesListRepository
 import com.example.spaceexplorer.domain.repository.FeedArticleDetailRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
@@ -38,6 +39,12 @@ class FeedArticleDetailViewModel @Inject constructor(
     fun saveFavoriteArticle(article: FeedArticle) {
         viewModelScope.launch {
             feedArticleDetailRepository.saveToFavorites(article)
+        }
+    }
+
+    fun removeFavoriteArticle(articleId: Int) {
+        viewModelScope.launch {
+            feedArticleDetailRepository.removeFromFavorites(articleId)
         }
     }
 }
