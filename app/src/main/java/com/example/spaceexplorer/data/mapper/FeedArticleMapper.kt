@@ -14,7 +14,8 @@ fun FeedArticleDto.toDomain(): FeedArticle = FeedArticle(
     imageUrl = imageUrl.orEmpty(),
     newsSite = newsSite.orEmpty(),
     summary = summary.orEmpty(),
-    publishedAt = publishedAt.orEmpty()
+    publishedAt = publishedAt.orEmpty(),
+    isFavorite = isFavorite
 )
 
 fun FeedArticleDto.toEntity(): FeedArticleEntity = FeedArticleEntity(
@@ -45,7 +46,8 @@ fun FeedArticleEntity.toDomain(): FeedArticle = FeedArticle(
     imageUrl = imageUrl,
     newsSite = newsSite,
     summary = summary,
-    publishedAt = publishedAt
+    publishedAt = publishedAt,
+    isFavorite = false
 )
 
 fun AuthorDto.toDomain(): Author = Author(

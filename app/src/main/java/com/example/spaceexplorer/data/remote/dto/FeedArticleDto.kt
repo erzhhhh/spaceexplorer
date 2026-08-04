@@ -23,6 +23,7 @@ data class FeedArticleDto(
     val publishedAt: String?,
     @SerialName("updated_at")
     val updatedAt: String?,
+    val isFavorite: Boolean = false
 )
 
 @Serializable

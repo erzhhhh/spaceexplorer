@@ -15,7 +15,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -40,6 +39,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.example.spaceexplorer.R
 import com.example.spaceexplorer.domain.model.FeedArticle
+import com.example.spaceexplorer.ui.components.FavoriteButton
 import com.example.spaceexplorer.ui.components.FullScreenError
 import com.example.spaceexplorer.ui.components.FullScreenLoading
 
@@ -74,7 +74,7 @@ fun FeedArticleDetailScreen(
             article = feedArticleState.article,
             onBackClick = onBackClick,
             onFavoriteClick = {
-                viewModel.saveArticle(
+                viewModel.saveFavoriteArticle(
                     feedArticleState.article
                 )
             })
@@ -136,21 +136,14 @@ private fun ArticleDetailsScreen(
                         tint = Color.White
                     )
                 }
-                IconButton(
-                    onClick = {
-                        onFavoriteClick()
-                    },
+                FavoriteButton(
+                    isFavorite = article.isFavorite,
+                    onFavoriteClick = onFavoriteClick,
                     modifier = Modifier
                         .align(Alignment.TopEnd)
                         .padding(8.dp)
                         .background(Color.Black.copy(alpha = 0.3f), CircleShape)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.FavoriteBorder,
-                        contentDescription = "Favorite",
-                        tint = Color.White
-                    )
-                }
+                )
                 Text(
                     text = article.title,
                     modifier = Modifier

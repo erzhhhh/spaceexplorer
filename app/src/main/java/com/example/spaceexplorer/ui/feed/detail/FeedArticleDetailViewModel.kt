@@ -35,7 +35,7 @@ class FeedArticleDetailViewModel @Inject constructor(
             initialValue = FeedArticleState.Loading
         )
 
-    fun saveArticle(article: FeedArticle) {
+    fun saveFavoriteArticle(article: FeedArticle) {
         viewModelScope.launch {
             feedArticleDetailRepository.saveToFavorites(article)
         }

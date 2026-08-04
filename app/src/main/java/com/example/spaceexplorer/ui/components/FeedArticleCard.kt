@@ -74,6 +74,7 @@ fun FeedArticleCardPreview() {
             newsSite = "SpaceX",
             summary = "Summary",
             publishedAt = "2023-05-01T12:00:00Z",
+            isFavorite = true
         ),
         onArticleClick = {}
     )
