@@ -9,6 +9,7 @@ data class FeedArticle(
     val newsSite: String,
     val summary: String,
     val publishedAt: String,
+    val isFavorite: Boolean = false
 )
 
 data class Author(

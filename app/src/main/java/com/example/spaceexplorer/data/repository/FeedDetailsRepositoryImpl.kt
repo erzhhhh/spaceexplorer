@@ -11,6 +11,7 @@ import com.example.spaceexplorer.domain.repository.FeedArticleDetailRepository
 import com.example.spaceexplorer.domain.repository.SettingsRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flatMapLatest
@@ -24,8 +25,17 @@ class FeedDetailsRepositoryImpl(
     private val settingsRepository: SettingsRepository
 ) : FeedArticleDetailRepository {
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     override fun getFeedArticle(articleId: String): Flow<FeedArticle> {
+        return combine(
+            flow = loadArticle(articleId),
+            flow2 = favoritesDao.isFavorite(articleId)
+        ) { article, isFavorite ->
+            article.copy(isFavorite = isFavorite)
+        }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private fun loadArticle(articleId: String): Flow<FeedArticle> {
         return settingsRepository.offlineCachingFlow
             .distinctUntilChanged()
             .flatMapLatest { isCachingEnabled ->
@@ -38,7 +48,11 @@ class FeedDetailsRepositoryImpl(
     }
 
     override suspend fun saveToFavorites(article: FeedArticle) {
-        favoritesDao.insertArticle(article.toFavoriteEntity())
+        if (!article.isFavorite) {
+            favoritesDao.insertArticle(article.copy(isFavorite = true).toFavoriteEntity())
+        } else {
+            favoritesDao.deleteArticle(article.id)
+        }
     }
 
     private fun observeArticleWithRefresh(articleId: String): Flow<FeedArticle> = flow {
