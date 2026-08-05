@@ -102,6 +102,16 @@ private fun ArticleDetailsScreen(
 ) {
     var showDialog by remember { mutableStateOf(false) }
 
+    if (showDialog) {
+        ConfirmDialog(
+            onConfirm = {
+                showDialog = false
+                onFavoriteRemoveClick()
+            },
+            onDismiss = { showDialog = false }
+        )
+    }
+
     Scaffold { innerPadding ->
         Column(
             modifier = modifier
@@ -164,16 +174,6 @@ private fun ArticleDetailsScreen(
                         .padding(8.dp)
                         .background(Color.Black.copy(alpha = 0.3f), CircleShape)
                 )
-
-                if (showDialog) {
-                    ConfirmDialog(
-                        onConfirm = {
-                            showDialog = false
-                            onFavoriteRemoveClick()
-                        },
-                        onDismiss = { showDialog = false }
-                    )
-                }
 
                 Text(
                     text = article.title,
