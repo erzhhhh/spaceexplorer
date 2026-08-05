@@ -3,6 +3,7 @@ package com.example.spaceexplorer.data.mapper
 import com.example.spaceexplorer.data.local.database.FeedArticleEntity
 import com.example.spaceexplorer.data.remote.dto.AuthorDto
 import com.example.spaceexplorer.data.remote.dto.FeedArticleDto
+import com.example.spaceexplorer.data.utils.formatDate
 import com.example.spaceexplorer.domain.model.Author
 import com.example.spaceexplorer.domain.model.FeedArticle
 
@@ -14,7 +15,7 @@ fun FeedArticleDto.toDomain(): FeedArticle = FeedArticle(
     imageUrl = imageUrl.orEmpty(),
     newsSite = newsSite.orEmpty(),
     summary = summary.orEmpty(),
-    publishedAt = publishedAt.orEmpty(),
+    publishedAt = publishedAt?.formatDate().orEmpty(),
     isFavorite = isFavorite
 )
 
