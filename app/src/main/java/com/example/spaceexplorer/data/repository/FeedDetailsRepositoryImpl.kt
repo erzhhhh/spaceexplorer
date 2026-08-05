@@ -48,11 +48,11 @@ class FeedDetailsRepositoryImpl(
     }
 
     override suspend fun saveToFavorites(article: FeedArticle) {
-        if (!article.isFavorite) {
-            favoritesDao.insertArticle(article.copy(isFavorite = true).toFavoriteEntity())
-        } else {
-            favoritesDao.deleteArticle(article.id)
-        }
+        favoritesDao.insertArticle(article.copy(isFavorite = true).toFavoriteEntity())
+    }
+
+    override suspend fun removeFromFavorites(articleId: Int) {
+        favoritesDao.deleteArticle(articleId)
     }
 
     private fun observeArticleWithRefresh(articleId: String): Flow<FeedArticle> = flow {

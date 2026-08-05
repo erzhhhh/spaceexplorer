@@ -7,4 +7,7 @@
     <string name="feed_retry">Retry</string>
     <string name="feed_no_more_articles">No more articles</string>
     <string name="read_in_full">Read in full</string>
+    <string name="remove_from_favorites">Are you sure you want to remove this article from Favorites?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>">
 </resources>
