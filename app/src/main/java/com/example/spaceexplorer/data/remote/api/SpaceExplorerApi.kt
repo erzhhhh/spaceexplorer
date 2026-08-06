@@ -7,12 +7,13 @@ import com.example.spaceexplorer.data.remote.dto.LaunchDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import kotlin.time.Instant
 
 interface SpaceExplorerApi {
 
     @GET("articles")
     suspend fun loadFeedCursor(
-        @Query("published_at_lt") publishedAtLt: String?
+        @Query("published_at_lt") publishedAtLt: Instant?
     ): FeedDto
 
     @GET("articles/{id}")
@@ -22,7 +23,7 @@ interface SpaceExplorerApi {
 
     @GET("reports")
     suspend fun loadLaunchCursor(
-        @Query("published_at_lt") publishedAtLt: String?
+        @Query("published_at_lt") publishedAtLt: Instant?
     ): LaunchDto
 
     @GET("reports/{id}")

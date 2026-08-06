@@ -1,16 +1,17 @@
-package com.example.spaceexplorer.data.local.database
+package com.example.spaceexplorer.data.local.database.launch
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlin.time.Instant
 
 // TODO add authors list property
-@Entity(tableName = "feed_articles")
-data class FeedArticleEntity(
+@Entity(tableName = "launch_articles")
+data class LaunchArticleEntity(
     @PrimaryKey val id: Int = 0,
     val title: String,
     val url: String,
     val imageUrl: String,
     val newsSite: String,
     val summary: String,
-    val publishedAt: String,
+    val publishedAt: Instant?,
 )

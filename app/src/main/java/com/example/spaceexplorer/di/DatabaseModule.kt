@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.spaceexplorer.data.local.database.AppDatabase
 import com.example.spaceexplorer.data.local.database.MIGRATION_1_2
+import com.example.spaceexplorer.data.local.database.MIGRATION_2_3
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +24,7 @@ object DatabaseModule {
             klass = AppDatabase::class.java,
             name = "space_explorer_db"
         )
-            .addMigrations(MIGRATION_1_2)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
             .build()
     }
 

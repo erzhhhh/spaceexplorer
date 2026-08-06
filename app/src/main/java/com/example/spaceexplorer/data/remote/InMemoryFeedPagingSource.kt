@@ -6,14 +6,15 @@ import com.example.spaceexplorer.data.remote.api.SpaceExplorerApi
 import com.example.spaceexplorer.data.remote.dto.FeedArticleDto
 import okio.IOException
 import retrofit2.HttpException
+import kotlin.time.Instant
 
 class InMemoryFeedPagingSource(
     private val api: SpaceExplorerApi
-) : PagingSource<String, FeedArticleDto>() {
+) : PagingSource<Instant, FeedArticleDto>() {
 
-    override suspend fun load(params: LoadParams<String>): LoadResult<String, FeedArticleDto> {
+    override suspend fun load(params: LoadParams<Instant>): LoadResult<Instant, FeedArticleDto> {
         return try {
-            val cursor: String? = params.key
+            val cursor: Instant? = params.key
 
             val response = api.loadFeedCursor(publishedAtLt = cursor)
 
@@ -37,7 +38,7 @@ class InMemoryFeedPagingSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<String, FeedArticleDto>): String? {
+    override fun getRefreshKey(state: PagingState<Instant, FeedArticleDto>): Instant? {
         return null
     }
 }

@@ -4,13 +4,14 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import com.example.spaceexplorer.data.local.database.FeedDao
-import com.example.spaceexplorer.data.local.database.FeedArticleEntity
+import com.example.spaceexplorer.data.local.database.feed.FeedArticleEntity
+import com.example.spaceexplorer.data.local.database.feed.FeedDao
 import com.example.spaceexplorer.data.mapper.toEntity
 import com.example.spaceexplorer.data.remote.api.SpaceExplorerApi
 import com.example.spaceexplorer.data.remote.dto.FeedArticleDto
 import okio.IOException
 import retrofit2.HttpException
+import kotlin.time.Instant
 
 @OptIn(ExperimentalPagingApi::class)
 class FeedRemoteMediator(
@@ -25,7 +26,7 @@ class FeedRemoteMediator(
 
         return try {
 
-            val cursor: String? = when (loadType) {
+            val cursor: Instant? = when (loadType) {
                 LoadType.REFRESH -> null
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
                 LoadType.APPEND -> {

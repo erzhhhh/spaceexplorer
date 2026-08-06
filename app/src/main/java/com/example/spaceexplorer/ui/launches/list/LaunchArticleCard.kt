@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.spaceexplorer.domain.model.Author
 import com.example.spaceexplorer.domain.model.LaunchArticle
+import kotlin.time.Instant
 
 @Composable
 fun LaunchArticleCard(
@@ -73,7 +74,7 @@ fun LaunchArticleCardPreview() {
             imageUrl = "https://developer.android.com/static/develop/ui/compose/images/tooling-preview-live-edit.gif",
             newsSite = "SpaceX",
             summary = "Summary",
-            publishedAt = "2023-05-01T12:00:00Z",
+            publishedAt = Instant.DISTANT_PAST,
         ),
         onArticleClick = {}
     )

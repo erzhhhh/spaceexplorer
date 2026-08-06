@@ -1,9 +1,10 @@
-package com.example.spaceexplorer.data.local.database
+package com.example.spaceexplorer.data.local.database.feed
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
+import com.example.spaceexplorer.data.local.database.feed.FeedArticleEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -6,7 +6,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.example.spaceexplorer.data.local.FeedRemoteMediator
-import com.example.spaceexplorer.data.local.database.FeedDao
+import com.example.spaceexplorer.data.local.database.feed.FeedDao
 import com.example.spaceexplorer.data.mapper.toDomain
 import com.example.spaceexplorer.data.remote.InMemoryFeedPagingSource
 import com.example.spaceexplorer.data.remote.api.SpaceExplorerApi

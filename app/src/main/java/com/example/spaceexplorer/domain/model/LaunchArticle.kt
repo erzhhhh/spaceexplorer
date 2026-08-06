@@ -1,5 +1,7 @@
 package com.example.spaceexplorer.domain.model
 
+import kotlin.time.Instant
+
 data class LaunchArticle(
     val id: Int,
     val title: String,
@@ -8,5 +10,5 @@ data class LaunchArticle(
     val imageUrl: String,
     val newsSite: String,
     val summary: String,
-    val publishedAt: String,
+    val publishedAt: Instant?,
 )
