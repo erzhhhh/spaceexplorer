@@ -188,7 +188,8 @@ private fun ArticleDetailsScreen(
             }
 
             Column(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Row(
                     modifier = Modifier
@@ -198,22 +199,25 @@ private fun ArticleDetailsScreen(
                 ) {
                     Text(
                         text = article.newsSite,
-                        modifier = Modifier.padding(start = 16.dp)
+                        modifier = Modifier.padding(start = 16.dp),
+                        color =  MaterialTheme.colorScheme.onBackground
                     )
                     Text(
                         text = article.publishedAt.formatAsLocalizedDate(LocalConfiguration.current.locales[0]),
-                        modifier = Modifier.padding(end = 16.dp)
+                        modifier = Modifier.padding(end = 16.dp),
+                        color =  MaterialTheme.colorScheme.onBackground
                     )
                 }
                 HorizontalDivider(
                     modifier = Modifier
                         .padding(horizontal = 16.dp),
-                    thickness = 1.dp,
-                    color = Color.Gray
+                    thickness = 2.dp,
+                    color = MaterialTheme.colorScheme.outline
                 )
                 Text(
                     text = article.summary,
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    color =  MaterialTheme.colorScheme.onBackground
                 )
             }
 
@@ -223,7 +227,10 @@ private fun ArticleDetailsScreen(
                 modifier = Modifier
                     .padding(16.dp)
                     .fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Black.copy(alpha = 0.3f)),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    contentColor = MaterialTheme.colorScheme.onSurface
+                ),
                 onClick = {
                     val intent = CustomTabsIntent.Builder()
                         .build()

@@ -33,6 +33,7 @@ fun FeedArticleCard(
             .clickable {
                 onArticleClick(article.id)
             },
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(
@@ -49,12 +50,14 @@ fun FeedArticleCard(
             Text(
                 modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp),
                 text = article.title,
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface
             )
             Text(
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
                 text = article.publishedAt.formatAsLocalizedDate(LocalConfiguration.current.locales[0]),
-                style = MaterialTheme.typography.bodySmall
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }
