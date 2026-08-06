@@ -1,6 +1,6 @@
 package com.example.spaceexplorer.data.repository
 
-import com.example.spaceexplorer.data.local.database.LaunchDao
+import com.example.spaceexplorer.data.local.database.launch.LaunchDao
 import com.example.spaceexplorer.data.mapper.toDomain
 import com.example.spaceexplorer.data.mapper.toEntity
 import com.example.spaceexplorer.data.remote.api.SpaceExplorerApi

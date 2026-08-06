@@ -1,7 +1,7 @@
 package com.example.spaceexplorer.di
 
-import com.example.spaceexplorer.data.local.database.FavoritesDao
-import com.example.spaceexplorer.data.local.database.FeedDao
+import com.example.spaceexplorer.data.local.database.favorites.FavoritesDao
+import com.example.spaceexplorer.data.local.database.feed.FeedDao
 import com.example.spaceexplorer.data.remote.api.SpaceExplorerApi
 import com.example.spaceexplorer.data.repository.FeedDetailsRepositoryImpl
 import com.example.spaceexplorer.data.repository.FeedRepositoryImpl

@@ -1,6 +1,6 @@
 package com.example.spaceexplorer.data.repository
 
-import com.example.spaceexplorer.data.local.database.FeedDao
+import com.example.spaceexplorer.data.local.database.feed.FeedDao
 import com.example.spaceexplorer.data.local.datastore.SettingsDataStore
 import com.example.spaceexplorer.domain.repository.SettingsRepository
 import jakarta.inject.Inject

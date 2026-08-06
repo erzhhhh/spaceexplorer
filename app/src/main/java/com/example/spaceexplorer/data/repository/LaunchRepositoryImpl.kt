@@ -6,7 +6,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.example.spaceexplorer.data.local.LaunchRemoteMediator
-import com.example.spaceexplorer.data.local.database.LaunchDao
+import com.example.spaceexplorer.data.local.database.launch.LaunchDao
 import com.example.spaceexplorer.data.mapper.toDomain
 import com.example.spaceexplorer.data.remote.InMemoryLaunchPagingSource
 import com.example.spaceexplorer.data.remote.api.SpaceExplorerApi

@@ -1,6 +1,6 @@
 package com.example.spaceexplorer.di
 
-import com.example.spaceexplorer.data.local.database.FeedDao
+import com.example.spaceexplorer.data.local.database.feed.FeedDao
 import com.example.spaceexplorer.data.local.datastore.SettingsDataStore
 import com.example.spaceexplorer.data.repository.SettingsRepositoryImpl
 import com.example.spaceexplorer.domain.repository.SettingsRepository

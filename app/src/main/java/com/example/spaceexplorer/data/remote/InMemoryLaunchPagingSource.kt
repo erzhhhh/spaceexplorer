@@ -6,18 +6,19 @@ import com.example.spaceexplorer.data.remote.api.SpaceExplorerApi
 import com.example.spaceexplorer.data.remote.dto.LaunchArticleDto
 import okio.IOException
 import retrofit2.HttpException
+import kotlin.time.Instant
 
 class InMemoryLaunchPagingSource(
     private val api: SpaceExplorerApi
-) : PagingSource<String, LaunchArticleDto>() {
+) : PagingSource<Instant, LaunchArticleDto>() {
 
-    override suspend fun load(params: LoadParams<String>): LoadResult<String, LaunchArticleDto> {
+    override suspend fun load(params: LoadParams<Instant>): LoadResult<Instant, LaunchArticleDto> {
         return try {
-            val cursor: String? = params.key
+            val cursor: Instant? = params.key
             val response = api.loadLaunchCursor(publishedAtLt = cursor)
 
             val launchArticles: List<LaunchArticleDto> = response.results.orEmpty()
-            val nextKey: String? = launchArticles.lastOrNull()?.publishedAt
+            val nextKey: Instant? = launchArticles.lastOrNull()?.publishedAt
 
             LoadResult.Page(
                 data = launchArticles,
@@ -31,7 +32,7 @@ class InMemoryLaunchPagingSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<String, LaunchArticleDto>): String? {
+    override fun getRefreshKey(state: PagingState<Instant, LaunchArticleDto>): Instant? {
         return null
     }
 }

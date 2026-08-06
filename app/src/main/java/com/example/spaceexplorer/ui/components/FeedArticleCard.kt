@@ -12,11 +12,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.spaceexplorer.domain.model.Author
 import com.example.spaceexplorer.domain.model.FeedArticle
+import com.example.spaceexplorer.ui.utils.formatAsLocalizedDate
+import kotlin.time.Instant
 
 @Composable
 fun FeedArticleCard(
@@ -44,9 +47,14 @@ fun FeedArticleCard(
                 contentScale = ContentScale.Crop
             )
             Text(
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp),
                 text = article.title,
                 style = MaterialTheme.typography.titleMedium
+            )
+            Text(
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+                text = article.publishedAt.formatAsLocalizedDate(LocalConfiguration.current.locales[0]),
+                style = MaterialTheme.typography.bodySmall
             )
         }
     }
@@ -73,7 +81,7 @@ fun FeedArticleCardPreview() {
             imageUrl = "https://developer.android.com/static/develop/ui/compose/images/tooling-preview-live-edit.gif",
             newsSite = "SpaceX",
             summary = "Summary",
-            publishedAt = "2023-05-01T12:00:00Z",
+            publishedAt = Instant.DISTANT_PAST,
             isFavorite = true
         ),
         onArticleClick = {}

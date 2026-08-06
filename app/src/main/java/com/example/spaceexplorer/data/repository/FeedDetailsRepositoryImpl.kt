@@ -1,7 +1,7 @@
 package com.example.spaceexplorer.data.repository
 
-import com.example.spaceexplorer.data.local.database.FavoritesDao
-import com.example.spaceexplorer.data.local.database.FeedDao
+import com.example.spaceexplorer.data.local.database.favorites.FavoritesDao
+import com.example.spaceexplorer.data.local.database.feed.FeedDao
 import com.example.spaceexplorer.data.mapper.toDomain
 import com.example.spaceexplorer.data.mapper.toEntity
 import com.example.spaceexplorer.data.mapper.toFavoriteEntity

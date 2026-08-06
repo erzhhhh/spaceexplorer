@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -41,6 +42,7 @@ import com.example.spaceexplorer.R
 import com.example.spaceexplorer.domain.model.LaunchArticle
 import com.example.spaceexplorer.ui.components.FullScreenError
 import com.example.spaceexplorer.ui.components.FullScreenLoading
+import com.example.spaceexplorer.ui.utils.formatAsLocalizedDate
 
 @Composable
 fun LaunchArticleDetailScreen(
@@ -143,7 +145,7 @@ private fun ArticleDetailsScreen(
                         modifier = Modifier.padding(start = 16.dp)
                     )
                     Text(
-                        text = article.publishedAt,
+                        text = article.publishedAt.formatAsLocalizedDate(LocalConfiguration.current.locales[0]),
                         modifier = Modifier.padding(end = 16.dp)
                     )
                 }

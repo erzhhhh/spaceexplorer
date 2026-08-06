@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
-import com.example.spaceexplorer.data.local.database.FavoritesDao
+import com.example.spaceexplorer.data.local.database.favorites.FavoritesDao
 import com.example.spaceexplorer.data.mapper.toDomain
 import com.example.spaceexplorer.domain.model.FeedArticle
 import com.example.spaceexplorer.domain.repository.FavoritesListRepository

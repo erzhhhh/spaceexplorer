@@ -1,6 +1,6 @@
 package com.example.spaceexplorer.di
 
-import com.example.spaceexplorer.data.local.database.FavoritesDao
+import com.example.spaceexplorer.data.local.database.favorites.FavoritesDao
 import com.example.spaceexplorer.data.repository.FavoritesListRepositoryImpl
 import com.example.spaceexplorer.domain.repository.FavoritesListRepository
 import dagger.Module

@@ -1,9 +1,8 @@
 package com.example.spaceexplorer.data.mapper
 
-import com.example.spaceexplorer.data.local.database.LaunchArticleEntity
+import com.example.spaceexplorer.data.local.database.launch.LaunchArticleEntity
 import com.example.spaceexplorer.data.remote.dto.LaunchArticleDto
 import com.example.spaceexplorer.data.remote.dto.LaunchAuthorDto
-import com.example.spaceexplorer.data.utils.formatDate
 import com.example.spaceexplorer.domain.model.Author
 import com.example.spaceexplorer.domain.model.LaunchArticle
 
@@ -15,7 +14,7 @@ fun LaunchArticleDto.toDomain(): LaunchArticle = LaunchArticle(
     imageUrl = imageUrl.orEmpty(),
     newsSite = newsSite.orEmpty(),
     summary = summary.orEmpty(),
-    publishedAt = publishedAt?.formatDate().orEmpty(),
+    publishedAt = publishedAt
 )
 
 fun LaunchAuthorDto.toDomain(): Author = Author(
@@ -40,5 +39,5 @@ fun LaunchArticleDto.toEntity(): LaunchArticleEntity = LaunchArticleEntity(
     imageUrl = imageUrl.orEmpty(),
     newsSite = newsSite.orEmpty(),
     summary = summary.orEmpty(),
-    publishedAt = publishedAt.orEmpty()
+    publishedAt = publishedAt
 )

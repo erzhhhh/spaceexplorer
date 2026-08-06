@@ -1,4 +1,4 @@
-package com.example.spaceexplorer.data.local.database
+package com.example.spaceexplorer.data.local.database.favorites
 
 import androidx.paging.PagingSource
 import androidx.room.Dao

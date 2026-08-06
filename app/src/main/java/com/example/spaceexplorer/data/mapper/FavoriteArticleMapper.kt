@@ -1,6 +1,6 @@
 package com.example.spaceexplorer.data.mapper
 
-import com.example.spaceexplorer.data.local.database.FavoriteArticleEntity
+import com.example.spaceexplorer.data.local.database.favorites.FavoriteArticleEntity
 import com.example.spaceexplorer.domain.model.FeedArticle
 
 fun FeedArticle.toFavoriteEntity(): FavoriteArticleEntity = FavoriteArticleEntity(

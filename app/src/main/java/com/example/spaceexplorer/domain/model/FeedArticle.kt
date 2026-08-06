@@ -1,5 +1,7 @@
 package com.example.spaceexplorer.domain.model
 
+import kotlin.time.Instant
+
 data class FeedArticle(
     val id: Int,
     val title: String,
@@ -8,7 +10,7 @@ data class FeedArticle(
     val imageUrl: String,
     val newsSite: String,
     val summary: String,
-    val publishedAt: String,
+    val publishedAt: Instant?,
     val isFavorite: Boolean = false
 )
 

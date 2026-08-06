@@ -2,6 +2,7 @@ package com.example.spaceexplorer.data.remote.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlin.time.Instant
 
 @Serializable
 data class FeedDto(
@@ -20,7 +21,7 @@ data class FeedArticleDto(
     val newsSite: String?,
     val summary: String?,
     @SerialName("published_at")
-    val publishedAt: String?,
+    val publishedAt: Instant?,
     @SerialName("updated_at")
     val updatedAt: String?,
     val isFavorite: Boolean = false
