@@ -1,4 +1,4 @@
-package com.example.spaceexplorer.ui.settings
+package com.example.spaceexplorer
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,10 +9,9 @@ import jakarta.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 
 @HiltViewModel
-class SettingsViewModel @Inject constructor(
+class MainViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
@@ -22,23 +21,4 @@ class SettingsViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = ThemeMode.SYSTEM
         )
-
-    val offlineCachingEnabled: StateFlow<Boolean> = settingsRepository.offlineCachingFlow
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = false
-        )
-
-    fun onThemeChanged(themeMode: ThemeMode) {
-        viewModelScope.launch {
-            settingsRepository.setThemeMode(themeMode)
-        }
-    }
-
-    fun toggleOfflineCaching(enabled: Boolean) {
-        viewModelScope.launch {
-            settingsRepository.setOfflineCaching(enabled)
-        }
-    }
 }

@@ -3,6 +3,7 @@ package com.example.spaceexplorer.data.repository
 import com.example.spaceexplorer.data.local.database.feed.FeedDao
 import com.example.spaceexplorer.data.local.datastore.SettingsDataStore
 import com.example.spaceexplorer.domain.repository.SettingsRepository
+import com.example.spaceexplorer.ui.theme.ThemeMode
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
@@ -11,18 +12,18 @@ class SettingsRepositoryImpl @Inject constructor(
     private val dao: FeedDao,
 ) : SettingsRepository {
 
-    override val darkModeFlow: Flow<Boolean>
-        get() = settingsDataStore.darkModeFlow
+    override val themeModeFlow: Flow<ThemeMode>
+        get() = settingsDataStore.themeModeFlow
 
     override val offlineCachingFlow: Flow<Boolean>
         get() = settingsDataStore.offlineCachingFlow
 
-    override suspend fun setDarkMode(enabled: Boolean) {
-        settingsDataStore.setDarkMode(enabled)
+    override suspend fun setThemeMode(themeMode: ThemeMode) {
+        settingsDataStore.setThemeMode(themeMode)
     }
 
     override suspend fun setOfflineCaching(enabled: Boolean) {
-        if (!enabled){
+        if (!enabled) {
             dao.deleteAllArticles()
         }
         settingsDataStore.setOfflineCaching(enabled)
