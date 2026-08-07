@@ -5,7 +5,9 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.spaceexplorer.ui.theme.ThemeMode
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -14,13 +16,13 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 class SettingsDataStore(private val context: Context) {
 
     private object PreferenceKeys {
-        val DARK_MODE: Preferences.Key<Boolean> = booleanPreferencesKey("dark_mode")
+        val THEME_MODE: Preferences.Key<String> = stringPreferencesKey("theme_mode")
         val OFFLINE_CACHING: Preferences.Key<Boolean> = booleanPreferencesKey("offline_caching")
     }
 
-    val darkModeFlow: Flow<Boolean> = context.dataStore.data
+    val themeModeFlow: Flow<ThemeMode> = context.dataStore.data
         .map { preferences ->
-            preferences[PreferenceKeys.DARK_MODE] ?: false
+            ThemeMode.fromName(preferences[PreferenceKeys.THEME_MODE])
         }
 
     val offlineCachingFlow: Flow<Boolean> = context.dataStore.data
@@ -28,9 +30,9 @@ class SettingsDataStore(private val context: Context) {
             preferences[PreferenceKeys.OFFLINE_CACHING] ?: false
         }
 
-    suspend fun setDarkMode(enabled: Boolean) {
+    suspend fun setThemeMode(themeMode: ThemeMode) {
         context.dataStore.edit { preferences ->
-            preferences[PreferenceKeys.DARK_MODE] = enabled
+            preferences[PreferenceKeys.THEME_MODE] = themeMode.name
         }
     }
 

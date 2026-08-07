@@ -10,4 +10,7 @@
     <string name="remove_from_favorites">Are you sure you want to remove this article from Favorites?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>">
+    <string name="dark_mode">Dark</string>
+    <string name="light_mode">Light</string>
+    <string name="system_mode">System</string>
 </resources>

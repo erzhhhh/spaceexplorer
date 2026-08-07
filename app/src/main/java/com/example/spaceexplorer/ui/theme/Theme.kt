@@ -51,19 +51,27 @@ private val LightColorScheme = lightColorScheme(
 @RequiresApi(Build.VERSION_CODES.S)
 @Composable
 fun SpaceExplorerTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    themeMode: ThemeMode,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+    val colorScheme = when (themeMode) {
+        ThemeMode.DARK -> DarkColorScheme
+        ThemeMode.LIGHT -> LightColorScheme
+        ThemeMode.SYSTEM -> {
+            val isSystemDark = isSystemInDarkTheme()
+
+            when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+                    val context = LocalContext.current
+                    if (isSystemDark) dynamicDarkColorScheme(context)
+                    else dynamicLightColorScheme(context)
+                }
+
+                isSystemDark -> DarkColorScheme
+                else -> LightColorScheme
+            }
+        }
     }
 
     MaterialTheme(
@@ -71,4 +79,17 @@ fun SpaceExplorerTheme(
         typography = Typography,
         content = content
     )
+}
+
+enum class ThemeMode {
+    DARK,
+    LIGHT,
+    SYSTEM;
+
+    companion object {
+
+        fun fromName(name: String?): ThemeMode {
+            return entries.find { it.name == name } ?: SYSTEM
+        }
+    }
 }
