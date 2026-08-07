@@ -15,10 +15,10 @@ class MainViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
-    val themeMode: StateFlow<ThemeMode> = settingsRepository.themeModeFlow
+    val themeMode: StateFlow<ThemeMode?> = settingsRepository.themeModeFlow
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = ThemeMode.SYSTEM
+            initialValue = null
         )
 }

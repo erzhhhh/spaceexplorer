@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.androidx.paging.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.browser)
+    implementation(libs.androidx.splashcreen)
     implementation(libs.retrofit)
     implementation(libs.retrofit.kotlinx.serialization.converter)
     implementation(libs.hilt.android)
