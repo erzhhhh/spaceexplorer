@@ -41,13 +41,15 @@ fun SettingsScreen(
         ) {
             Text(
                 text = stringResource(R.string.settings_appearance),
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onBackground
             )
 
             Card(
                 modifier = Modifier
                     .fillMaxWidth(),
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
             ) {
                 Row(
                     modifier = Modifier
@@ -58,14 +60,16 @@ fun SettingsScreen(
                     Text(
                         modifier = Modifier.padding(start = 16.dp),
                         text = "\uD83C\uDF4C",
-                        fontSize = 48.sp
+                        fontSize = 48.sp,
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
                         modifier = Modifier
                             .padding(start = 8.dp, end = 8.dp)
                             .weight(1F),
                         text = stringResource(R.string.settings_dark_mode),
-                        style = MaterialTheme.typography.titleMedium
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                     Switch(
                         modifier = Modifier
@@ -80,13 +84,15 @@ fun SettingsScreen(
 
             Text(
                 text = stringResource(R.string.settings_content),
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onBackground
             )
 
             Card(
                 modifier = Modifier
                     .fillMaxWidth(),
                 elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
             ) {
                 Row(
                     modifier = Modifier
@@ -97,14 +103,16 @@ fun SettingsScreen(
                     Text(
                         modifier = Modifier.padding(start = 16.dp),
                         text = "\uD83D\uDCBE",
-                        fontSize = 48.sp
+                        fontSize = 48.sp,
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
                         modifier = Modifier
                             .padding(start = 8.dp, end = 8.dp)
                             .weight(1F),
                         text = stringResource(R.string.settings_offline_caching),
-                        style = MaterialTheme.typography.titleMedium
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                     Switch(
                         modifier = Modifier

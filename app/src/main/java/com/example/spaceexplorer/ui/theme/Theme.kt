@@ -1,7 +1,7 @@
 package com.example.spaceexplorer.ui.theme
 
-import android.app.Activity
 import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -12,27 +12,43 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = SpaceColors.Dark.Primary,
+    onPrimary = SpaceColors.Dark.OnPrimary,
+    secondary = SpaceColors.Dark.Secondary,
+    onSecondary = SpaceColors.Dark.OnSecondary,
+    tertiary = SpaceColors.Dark.Tertiary,
+    onTertiary = SpaceColors.Dark.OnTertiary,
+    error = SpaceColors.Dark.Error,
+    onError = SpaceColors.Dark.OnError,
+    background = SpaceColors.Dark.Background,
+    onBackground = SpaceColors.Dark.OnBackground,
+    surface = SpaceColors.Dark.Surface,
+    onSurface = SpaceColors.Dark.OnSurface,
+    surfaceVariant = SpaceColors.Dark.SurfaceVariant,
+    onSurfaceVariant = SpaceColors.Dark.OnSurfaceVariant,
+    outline = SpaceColors.Dark.Outline
+
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    primary = SpaceColors.Light.Primary,
+    onPrimary = SpaceColors.Light.OnPrimary,
+    secondary = SpaceColors.Light.Secondary,
+    onSecondary = SpaceColors.Light.OnSecondary,
+    tertiary = SpaceColors.Light.Tertiary,
+    onTertiary = SpaceColors.Light.OnTertiary,
+    error = SpaceColors.Light.Error,
+    onError = SpaceColors.Light.OnError,
+    background = SpaceColors.Light.Background,
+    onBackground = SpaceColors.Light.OnBackground,
+    surface = SpaceColors.Light.Surface,
+    onSurface = SpaceColors.Light.OnSurface,
+    surfaceVariant = SpaceColors.Light.SurfaceVariant,
+    onSurfaceVariant = SpaceColors.Light.OnSurfaceVariant,
+    outline = SpaceColors.Light.Outline
 )
 
+@RequiresApi(Build.VERSION_CODES.S)
 @Composable
 fun SpaceExplorerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
