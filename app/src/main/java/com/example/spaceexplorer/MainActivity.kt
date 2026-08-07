@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.spaceexplorer.ui.theme.SpaceExplorerTheme
 import com.example.spaceexplorer.ui.theme.ThemeMode
@@ -21,13 +22,20 @@ class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        splashScreen.setKeepOnScreenCondition {
+            viewModel.themeMode.value == null
+        }
         setContent {
             val themeMode by viewModel.themeMode.collectAsStateWithLifecycle()
 
-            SpaceExplorerTheme(themeMode) {
-                SpaceExplorerApp()
+            themeMode?.let { mode ->
+                SpaceExplorerTheme(mode) {
+                    SpaceExplorerApp()
+                }
             }
         }
     }

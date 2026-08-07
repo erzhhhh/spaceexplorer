@@ -19,6 +19,7 @@ paging = "3.5.0"
 navigation = "2.9.8"
 browser = "1.10.0"
 kotlinx-serialization = "1.11.0"
+splashscreen = "1.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -47,6 +48,7 @@ androidx-paging-compose = { group = "androidx.paging", name = "paging-compose", 
 androidx-paging-runtime-ktx = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "paging" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "browser" }
+androidx-splashcreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 retrofit-kotlinx-serialization-converter = { group = "com.squareup.retrofit2", name = "converter-kotlinx-serialization", version.ref = "retrofit" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
