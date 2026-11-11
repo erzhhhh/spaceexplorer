@@ -13,4 +13,6 @@
     <string name="dark_mode">Dark</string>
     <string name="light_mode">Light</string>
     <string name="system_mode">System</string>
+    <string name="favorites_added">Added to Favorites</string>
+    <string name="favorites_removed">Removed from Favorites</string>
 </resources>

@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -25,7 +26,7 @@ class FeedDetailsRepositoryImpl(
     private val settingsRepository: SettingsRepository
 ) : FeedArticleDetailRepository {
 
-    override fun getFeedArticle(articleId: String): Flow<FeedArticle> {
+    override fun getFeedArticle(articleId: Int): Flow<FeedArticle> {
         return combine(
             flow = loadArticle(articleId),
             flow2 = favoritesDao.isFavorite(articleId)
@@ -35,7 +36,7 @@ class FeedDetailsRepositoryImpl(
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    private fun loadArticle(articleId: String): Flow<FeedArticle> {
+    private fun loadArticle(articleId: Int): Flow<FeedArticle> {
         return settingsRepository.offlineCachingFlow
             .distinctUntilChanged()
             .flatMapLatest { isCachingEnabled ->
@@ -47,15 +48,22 @@ class FeedDetailsRepositoryImpl(
             }
     }
 
-    override suspend fun saveToFavorites(article: FeedArticle) {
-        favoritesDao.insertArticle(article.copy(isFavorite = true).toFavoriteEntity())
+    override suspend fun saveToFavorites(articleId: Int) {
+        val article: FeedArticle = loadArticle(articleId).first()
+        favoritesDao.insertArticle(article.toFavoriteEntity())
     }
 
     override suspend fun removeFromFavorites(articleId: Int) {
         favoritesDao.deleteArticle(articleId)
     }
 
-    private fun observeArticleWithRefresh(articleId: String): Flow<FeedArticle> = flow {
+    override suspend fun toggleFavorite(articleId: Int): Boolean {
+        val isFavorite = favoritesDao.isFavorite(articleId).first()
+        if (isFavorite) removeFromFavorites(articleId) else saveToFavorites(articleId)
+        return !isFavorite
+    }
+
+    private fun observeArticleWithRefresh(articleId: Int): Flow<FeedArticle> = flow {
         // FIXME: return immediate article from db. Refresh if in parallel
         try {
             val dto = api.getFeedArticle(articleId)

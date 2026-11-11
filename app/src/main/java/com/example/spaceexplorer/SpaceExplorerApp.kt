@@ -11,10 +11,12 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.spaceexplorer.ui.favorites.FavoritesScreen
 import com.example.spaceexplorer.ui.feed.detail.FeedArticleDetailScreen
 import com.example.spaceexplorer.ui.feed.list.FeedScreen
@@ -87,7 +89,12 @@ private fun SpaceExplorerNavHost(navHostController: NavHostController) {
                 )
             }
 
-            composable(route = FeedArticleDetailRoute.ROUTE) {
+            composable(
+                route = FeedArticleDetailRoute.ROUTE,
+                arguments = listOf(
+                    navArgument(FeedArticleDetailRoute.ARTICLE_ID_ARG) { type = NavType.IntType }
+                )
+            ) {
                 FeedArticleDetailScreen(
                     onBackClick = { navHostController.popBackStack() }
                 )
@@ -105,7 +112,12 @@ private fun SpaceExplorerNavHost(navHostController: NavHostController) {
                 )
             }
 
-            composable(route = LaunchArticleDetailRoute.ROUTE) {
+            composable(
+                route = LaunchArticleDetailRoute.ROUTE,
+                arguments = listOf(
+                    navArgument(LaunchArticleDetailRoute.ARTICLE_ID_ARG) { type = NavType.IntType }
+                )
+            ) {
                 LaunchArticleDetailScreen(
                     onBackClick = { navHostController.popBackStack() }
                 )

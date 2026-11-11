@@ -18,7 +18,7 @@ interface SpaceExplorerApi {
 
     @GET("articles/{id}")
     suspend fun getFeedArticle(
-        @Path("id") id: String
+        @Path("id") id: Int
     ): FeedArticleDto
 
     @GET("reports")
@@ -28,6 +28,6 @@ interface SpaceExplorerApi {
 
     @GET("reports/{id}")
     suspend fun getLaunchArticle(
-        @Path("id") id: String
+        @Path("id") id: Int
     ): LaunchArticleDto
 }
