@@ -22,7 +22,7 @@ class FeedArticleDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val articleId: String = requireNotNull(
+    private val articleId: Int = requireNotNull(
         savedStateHandle[FeedArticleDetailRoute.ARTICLE_ID_ARG]
     )
 
@@ -36,9 +36,9 @@ class FeedArticleDetailViewModel @Inject constructor(
             initialValue = FeedArticleState.Loading
         )
 
-    fun saveFavoriteArticle(article: FeedArticle) {
+    fun saveFavoriteArticle(articleId: Int) {
         viewModelScope.launch {
-            feedArticleDetailRepository.saveToFavorites(article)
+            feedArticleDetailRepository.saveToFavorites(articleId)
         }
     }
 

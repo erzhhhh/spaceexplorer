@@ -7,15 +7,16 @@ import com.example.spaceexplorer.domain.repository.SettingsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityRetainedComponent
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.components.SingletonComponent
+import jakarta.inject.Singleton
+
 
 @Module
-@InstallIn(ActivityRetainedComponent::class)
+@InstallIn(SingletonComponent::class)
 class SettingsModule {
 
     @Provides
-    @ActivityRetainedScoped
+    @Singleton
     fun provideSettingsRepository(
         settingsDataStore: SettingsDataStore,
         dao: FeedDao

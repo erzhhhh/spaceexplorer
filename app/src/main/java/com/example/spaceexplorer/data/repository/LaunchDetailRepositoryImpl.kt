@@ -24,7 +24,7 @@ class LaunchDetailRepositoryImpl(
 ) : LaunchDetailRepository {
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override fun getFeedArticle(articleId: String): Flow<LaunchArticle> {
+    override fun getFeedArticle(articleId: Int): Flow<LaunchArticle> {
         return settingsRepository.offlineCachingFlow
             .distinctUntilChanged()
             .flatMapLatest { isCachingEnabled ->
@@ -36,7 +36,7 @@ class LaunchDetailRepositoryImpl(
             }
     }
 
-    private fun observeArticleWithRefresh(articleId: String): Flow<LaunchArticle> {
+    private fun observeArticleWithRefresh(articleId: Int): Flow<LaunchArticle> {
         return flow {
             coroutineScope {
                 // subscribing to the article while refreshing it in parallel

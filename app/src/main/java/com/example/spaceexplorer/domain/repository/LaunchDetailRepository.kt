@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface LaunchDetailRepository {
 
-    fun getFeedArticle(articleId: String): Flow<LaunchArticle>
+    fun getFeedArticle(articleId: Int): Flow<LaunchArticle>
 }

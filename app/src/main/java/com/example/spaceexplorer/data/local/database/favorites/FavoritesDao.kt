@@ -19,5 +19,5 @@ interface FavoritesDao {
     fun getFavoriteArticles(): PagingSource<Int, FavoriteArticleEntity>
 
     @Query("SELECT EXISTS(SELECT 1 FROM favorite_articles WHERE id = :articleId)")
-    fun isFavorite(articleId: String): Flow<Boolean>
+    fun isFavorite(articleId: Int): Flow<Boolean>
 }

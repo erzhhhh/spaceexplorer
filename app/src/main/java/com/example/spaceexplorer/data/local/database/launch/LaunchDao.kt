@@ -13,7 +13,7 @@ interface LaunchDao {
     fun getPagedArticles(): PagingSource<Int, LaunchArticleEntity>
 
     @Query("SELECT * FROM launch_articles WHERE id = :id")
-    fun getArticle(id: String): Flow<LaunchArticleEntity>
+    fun getArticle(id: Int): Flow<LaunchArticleEntity>
 
     @Upsert
     suspend fun insertArticles(articles: List<LaunchArticleEntity>)

@@ -14,7 +14,7 @@ interface FeedDao {
     fun getPagedArticles(): PagingSource<Int, FeedArticleEntity>
 
     @Query("SELECT * FROM feed_articles WHERE id = :articleId")
-    fun getArticle(articleId: String): Flow<FeedArticleEntity>
+    fun getArticle(articleId: Int): Flow<FeedArticleEntity>
 
     @Upsert
     suspend fun insertArticles(articles: List<FeedArticleEntity>)

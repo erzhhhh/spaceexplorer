@@ -11,16 +11,15 @@ import com.example.spaceexplorer.domain.repository.SettingsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityRetainedComponent
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.components.SingletonComponent
+import jakarta.inject.Singleton
 
-// TODO ActivityRetainedComponent or SingletonComponent
 @Module
-@InstallIn(ActivityRetainedComponent::class)
+@InstallIn(SingletonComponent::class)
 class FeedModule {
 
     @Provides
-    @ActivityRetainedScoped
+    @Singleton
     fun provideFeedRepository(
         api: SpaceExplorerApi,
         dao: FeedDao,
@@ -30,7 +29,7 @@ class FeedModule {
     }
 
     @Provides
-    @ActivityRetainedScoped
+    @Singleton
     fun provideFeedArticleDetailRepository(
         api: SpaceExplorerApi,
         feedDao: FeedDao,

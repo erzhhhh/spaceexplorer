@@ -1,5 +1,8 @@
 package com.example.spaceexplorer.ui.feed.detail
 
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -39,6 +42,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -48,6 +53,7 @@ import com.example.spaceexplorer.domain.model.FeedArticle
 import com.example.spaceexplorer.ui.components.FavoriteButton
 import com.example.spaceexplorer.ui.components.FullScreenError
 import com.example.spaceexplorer.ui.components.FullScreenLoading
+import com.example.spaceexplorer.ui.favorites.FavoriteReceiver
 import com.example.spaceexplorer.ui.utils.formatAsLocalizedDate
 
 @Composable
@@ -82,7 +88,7 @@ fun FeedArticleDetailScreen(
             onBackClick = onBackClick,
             onFavoriteClick = {
                 viewModel.saveFavoriteArticle(
-                    feedArticleState.article
+                    feedArticleState.article.id
                 )
             },
             onFavoriteRemoveClick = {
@@ -200,12 +206,12 @@ private fun ArticleDetailsScreen(
                     Text(
                         text = article.newsSite,
                         modifier = Modifier.padding(start = 16.dp),
-                        color =  MaterialTheme.colorScheme.onBackground
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                     Text(
                         text = article.publishedAt.formatAsLocalizedDate(LocalConfiguration.current.locales[0]),
                         modifier = Modifier.padding(end = 16.dp),
-                        color =  MaterialTheme.colorScheme.onBackground
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                 }
                 HorizontalDivider(
@@ -217,7 +223,7 @@ private fun ArticleDetailsScreen(
                 Text(
                     text = article.summary,
                     modifier = Modifier.padding(horizontal = 16.dp),
-                    color =  MaterialTheme.colorScheme.onBackground
+                    color = MaterialTheme.colorScheme.onBackground
                 )
             }
 
@@ -232,9 +238,7 @@ private fun ArticleDetailsScreen(
                     contentColor = MaterialTheme.colorScheme.onSurface
                 ),
                 onClick = {
-                    val intent = CustomTabsIntent.Builder()
-                        .build()
-                    intent.launchUrl(context, article.url.toUri())
+                    openArticle(article, context)
                 }
             ) {
                 Text(
@@ -244,6 +248,41 @@ private fun ArticleDetailsScreen(
         }
     }
 }
+
+private fun openArticle(article: FeedArticle, context: Context) {
+    val resId = if (article.isFavorite) R.drawable.ic_favorite else R.drawable.ic_not_favorite
+
+    val drawable = checkNotNull(ContextCompat.getDrawable(context, resId)) {
+        "Drawable not found: ${context.resources.getResourceName(resId)}"
+    }
+
+    val icon = drawable.toBitmap()
+
+    val intent = Intent(context, FavoriteReceiver::class.java).apply {
+        putExtra(FavoriteReceiver.EXTRA_ARTICLE_ID, article.id)
+    }
+
+    val pendingIntent = PendingIntent.getBroadcast(
+        /* context = */ context,
+        /* requestCode = */ article.id,
+        /* intent = */ intent,
+        /* flags = */ PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+    )
+
+    CustomTabsIntent.Builder()
+        .setActionButton(
+            icon,
+            context.getString(favoriteDescription(article.isFavorite)),
+            pendingIntent,
+            false
+        )
+        .setShowTitle(true)
+        .build()
+        .launchUrl(context, article.url.toUri())
+}
+
+fun favoriteDescription(isFavorite: Boolean) =
+    if (isFavorite) R.string.favorites_removed else R.string.favorites_added
 
 @Composable
 fun ConfirmDialog(
